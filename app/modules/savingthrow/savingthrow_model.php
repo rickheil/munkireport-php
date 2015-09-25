@@ -41,7 +41,6 @@ class Savingthrow_model extends Model {
 			return; // Nothing found
 		}
         
-        echo $data;
 		// Parse log data
 		$name = ''; // malware name
         foreach(explode("\n", $data) as $line)
@@ -70,7 +69,6 @@ class Savingthrow_model extends Model {
 				
         	}
         }
-		throw new Exception("Error Processing Request", 1);
 
 	} // end process()
 }
