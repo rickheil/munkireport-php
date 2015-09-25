@@ -299,6 +299,13 @@
 	"report": {
 		"generate": "Generate Report"
 	},
+	"savingthrow": {
+		"listing": {
+			"title": "SavingThrow Report",
+			"malware_name": "Malware Name",
+			"malware_file": "Malware File"
+		}
+	},
 	"serial": "Serial Number",
 	"servermetrics": {
 		"tab": "Server Metrics"

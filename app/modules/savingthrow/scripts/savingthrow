@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# SavingThrow.py executable
+ST_SCRIPT="/usr/local/savingthrow/SavingThrow.py"
+
+# Out file
+OUT="/usr/local/munki/preflight.d/cache/savingthrow.txt"
+ 
+# Truncate out file
+> "$OUT"
+
+# Check if serveradmin exists
+if [ ! -e "$ST_SCRIPT" ]; then
+	echo "$ST_SCRIPT not found, aborting"
+	exit
+fi
+
+# Run the script
+"$ST_SCRIPT" > $OUT
+
