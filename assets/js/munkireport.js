@@ -35,6 +35,17 @@ $( document ).ready(function() {
 
         // Trigger appReady
         $(document).trigger('appReady', [i18n.lng()]);
+        
+        // Setup appUpdate
+        var delay = 60; // seconds
+        var refresh = function(){
+
+            $(document).trigger('appUpdate');
+
+            setTimeout(refresh, delay * 1000);
+        }
+
+        refresh();
     });
 });
 
