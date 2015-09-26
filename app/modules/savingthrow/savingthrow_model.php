@@ -71,4 +71,26 @@ class Savingthrow_model extends Model {
         }
 
 	} // end process()
+	
+	/**
+	 * Get malware items totals per Name
+	 *
+	 * Retrieves malware items totals
+	 *
+	 **/
+	public function get_items()
+	{
+		$out = array();
+		$where = get_machine_group_filter('WHERE');
+		$sql= "SELECT malware_name, COUNT(*) as count 
+			FROM savingthrow 
+			LEFT JOIN reportdata USING(serial_number)
+			$where
+			GROUP BY malware_name";
+		foreach($this->query($sql) AS $obj)
+		{
+			$out[] = $obj;
+		}
+		return $out;
+	}
 }

@@ -60,6 +60,25 @@ class Savingthrow_controller extends Module_controller
         $service = new Service_model;
         $obj->view('json', array('msg' => $service->retrieve_records($serial_number)));
     }
+	
+	/**
+     * Retrieve data in json format
+     *
+     * @return void
+     * @author 
+     **/
+    function get_items()
+    {
+		
+		if( ! $this->authorized())
+		{
+			$obj->view('json', array('msg' => 'Not authorized'));
+		}
+
+		$savingthrow = new Savingthrow_model();
+		$obj = new View();
+		$obj->view('json', array('msg' => $savingthrow->get_items()));
+    }
 
 
 } // END class Service_controller
