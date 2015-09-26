@@ -82,7 +82,7 @@ class Savingthrow_model extends Model {
 	{
 		$out = array();
 		$where = get_machine_group_filter('WHERE');
-		$sql= "SELECT malware_name, COUNT(*) as count 
+		$sql= "SELECT malware_name, COUNT(DISTINCT savingthrow.serial_number) as count 
 			FROM savingthrow 
 			LEFT JOIN reportdata USING(serial_number)
 			$where

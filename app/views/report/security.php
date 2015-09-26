@@ -8,7 +8,7 @@
 
   <div class="row">
 
-    <?php $this->view('malware_widget', array(), conf('module_path') . 'savingthrow/views/'); ?>
+    <?php $this->view('adware_widget', array(), conf('module_path') . 'savingthrow/views/'); ?>
 
 
   </div> <!-- /row -->
