@@ -195,7 +195,8 @@ $(document).on('appReady', function(e, lang) {
             
             // Add listener to email test
             $('#email-test').click(function(){
-                
+                var myButton = $(this);
+                myButton.text('Sending').attr('disabled', 'disabled');
                 var email = $('#notification_who').val(),
                     jqxhr = $.post( appUrl + "/module/notification/emailTest", {email: email})
                     .done(function(data){
@@ -209,6 +210,9 @@ $(document).on('appReady', function(e, lang) {
                     })
                     .fail(function(jqXHR, textStatus, errorThrown){
                             alert('Request failed: '+textStatus+' '+errorThrown);
+                    })
+                    .always(function(){
+                        myButton.text(i18n.t("email.test")).removeAttr("disabled");
                     });
 
             });
