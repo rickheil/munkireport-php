@@ -1,319 +1,637 @@
+/* zmip Bootstrap formform v0.1
+A JSON to Bootstrap 3 form generator based on the work of https://github.com/cbergmiller
+
+https://github.com/zmip/bootstrap-formform
+*/
 
 var FormForm = (function () {
-	function FormForm(dom, fields) {
-		this.dom = dom;
-		this.fields = fields;
+
+	function FormForm( parentForm, formData )
+	{
+		this.parentForm = parentForm;
+		this.formData = formData;
 		this.col1 = 4;
 		this.col2 = 8;
-		this.isHorizontal = dom.hasClass('form-horizontal');
+		this.isHorizontal = parentForm.hasClass( 'form-horizontal' );
 	}
-	FormForm.prototype._has = function(obj, key) {
-	  return obj != null && hasOwnProperty.call(obj, key);
-	};
-	/**
-	 * Render the Form and attach it to the DOM.
-	 */
-	FormForm.prototype.render = function () {
-		this._renderFields();
-		this._renderButtons();
-	};
-	/**
-	 * Render all buttons and attach them to the DOM.
-	 * @private
-	 */
-	FormForm.prototype._renderButtons = function () {
-		var renderedButtons = '';
-		_.each(this.fields, function (field) {
-			if (!_.contains(['button', 'submit'], field.type))
-				return;
-			renderedButtons += FormForm.templates.button(field);
-		});
-		if (this.isHorizontal) {
-			renderedButtons = FormForm.templates.horizontalOffsetGroup({
-				renderedData: renderedButtons,
-				col1: this.col1,
-				col2: this.col2
-			});
-		}
-		this.dom.append(renderedButtons);
-	};
-	/**
-	 * Render all form-fields and attach them to the DOM.
-	 * @private
-	 */
-	FormForm.prototype._renderFields = function () {
-		var _this = this;
-		_.each(this.fields, function (field) {
-			
-			var formField, inputTemplate, inputGroupTemplate, groupTemplate, typeConfig;
-			
-			// skip buttons
-			if (_.contains(['button', 'submit'], field.type)) return;
-			
-			// get type config
-			typeConfig = FormForm.typeConfig[field.type];
-			
-//console.log( typeConfig );
-			
-			if (!field.id) field.id = _.uniqueId('formform');
-			inputTemplate = _this._getInputTemplate(field);
-			inputGroupTemplate = _this._getInputGroupTemplate(field);
-			groupTemplate = _this._getGroupTemplate(field);
-			
-			formField = $(groupTemplate({
-				field: field,
-				renderedData: inputGroupTemplate({
-					field: field,
-					renderedData: inputTemplate(field)
-				}),
-				col1: _this.col1,
-				col2: _this.col2
-			}));
-			
-			// render select options
-			if (field.choices)
-				_this._renderChoices(formField, field);
-				
-			// set initial value
-			if (_this._has(field, 'value') && typeConfig.value) {
-				formField.find('input, select, textarea').val(field.value);
-			}
-			_this.dom.append(formField);
-			if (typeConfig.select2) {
-				formField.find('select').select2({ theme: 'bootstrap' });
-			}
-		});
-	};
-	/**
-	 * Get the matching template for a form-field.
-	 */
-	FormForm.prototype._getInputTemplate = function (field) {
-		if (FormForm.typeConfig[field.type]) {
-			return FormForm.typeConfig[field.type].template;
-		}
-		throw 'Unkown field type: ' + field.type;
-	};
-	FormForm.prototype._getInputGroupTemplate = function (field) {
-		if (field.addonPrepend || field.addonAppend) {
-			return FormForm.templates.inputGroup;
-		}
-		else {
-			return function (field) {
-				return field.renderedData;
-			};
-		}
-	};
 	
-	/**
-	 * Get the matching template for a form-group.
-	 */
-	FormForm.prototype._getGroupTemplate = function (field) {
-		if (field.type == 'checkboxinput' && this.isHorizontal) {
-			return FormForm.templates.horizontalOffsetGroup;
-		}
-		else if (_.contains(['checkboxinput', 'radiogroup', 'hidden'], field.type)) {
-			// no form-group
-			return function (data) {
-				return data.renderedData;
-			};
-		}
-		else if (this.isHorizontal) {
-			return FormForm.templates.horizontalGroup;
-		}
-		else {
-			return FormForm.templates.formGroup;
-		}
-	};
+	FormForm.prototype.unique_id = 1;
 	
-	/*
-	 * Render options for a select-box
-	 */
-	FormForm.prototype._renderChoices = function (formField, field) {
-		var select, choices;
-		choices = field.choices;
-		if (!_.isArray(choices) || !choices.length) return;
+	// -----------------------------------------------------------------------------
+	
+	FormForm.prototype.createItem = function( itemData )
+	{
+		var type = itemData.type;
 		
+		if ( type == 'select' ) return new ElementSelect( itemData );
+		else if ( type == 'textarea' ) return new ElementTextarea( itemData );
+		else if ( type in { 'button':0, 'submit':0, 'reset':0 } ) return new ElementButton( itemData );
+		else if ( type == 'static' ) return new ElementStatic( itemData );
+		else if ( type == 'radiogroup' ) return new ElementRadiogroup( itemData );
+		else if ( type == 'file' ) return new ElementFile( itemData );
+		else if ( type == 'hidden' ) return new ElementHidden( itemData );
+		else if ( type in {
+			text:0,
+			password:0,
+			datetime:0,
+			'datetime-local':0,
+			date:0,
+			month:0,
+			time:0,
+			week:0,
+			number:0,
+			email:0,
+			url:0,
+			search:0,
+			tel:0,
+			color:0,
+			checkbox:0,
+			radio:0
+			} ) return new Element( itemData );
 		
-		select = formField.find('select');
+		if ( ! type ) return new Element( itemData );
+		else throw new Error( 'unknown type: ' + itemData.type );
+	}
+	
+	// -----------------------------------------------------------------------------
+	
+	FormForm.prototype.render = function ()
+	{
+		var i = 1000;
+		var self = this; // will ECMA 6 finally fix this crap?
+		var buttons = [];
+		var btnsAlignRight = '';
+		
+		Element.prototype.isHorizontal = this.isHorizontal ? [this.col1, this.col2] : null;
+		
+		$.each( this.formData, function( index, itemData )
+		{
+			// create and render
+			var item = self.createItem( itemData ).render();
+			
+			// filter out any buttons on the form root (with added whitespace for proper spacing)
+			if ( itemData.type == 'submit' || itemData.type == 'button' )
+			{
+				if ( itemData.position == 'right' ) btnsAlignRight = ' text-right';
+				buttons.push( item, "\n" );
+			}
+			else self.parentForm.append( item );
 
-		if (_.isArray(choices[0][1])) {
-			select.html(FormForm.templates.optGroups(choices));
+		} );
+
+		// append buttons
+		if ( buttons.length )
+		{
+			if ( this.isHorizontal )
+			{
+				// wrap buttons in 'col-sm-offset' div
+				buttons = $('<div>').append( buttons );
+				buttons.addClass( 'col-sm-offset-'
+					+ Element.prototype.isHorizontal[0]
+					+ ' col-sm-' + Element.prototype.isHorizontal[1]
+					+ btnsAlignRight );
+
+				
+				buttons = $('<div>').addClass('form-group').append( buttons );
+			}
+			
+			// enclose in 'form-group' and add to form
+			self.parentForm.append( $('<div>').addClass('form-group'+btnsAlignRight).append( buttons ) );
 		}
-		else {
-			select.html(FormForm.templates.options(choices));
+		
+
+		
+		// set up 'additions'
+		this.setupAdditions();
+		
+	};
+
+	// -----------------------------------------------------------------------------
+	
+	FormForm.prototype.setupAdditions = function ()
+	{
+		var additions = $('.addition', this.parentForm );
+		if ( additions.length )
+		{
+			var focus = false;
+			additions.each( function( index ) {
+			
+				var addition = $(this);
+				var for_id = addition.data( 'for' );
+				var for_elem = $('#'+for_id);
+				if ( for_elem.length )
+				{
+					var name = for_elem.attr( 'name' );
+					
+					// get all other options with this name
+					var options = $('[name='+name+']')
+
+					if ( options.length )
+					{
+						var additionGroup = $(this).closest('div.form-group');
+
+						options.each( function( index2 ) {
+				
+							if ( $(this).attr( 'id' ) == for_id && ! $(this).is( ':checked' ) )
+							{
+								focus = false;
+								additionGroup.hide();
+							}
+							
+							$(this).click( function( evt ) {
+								
+								if (  $(this).attr( 'id' ) == for_id ) additionGroup.slideDown( 'fast', function() {
+						
+										if ( ! focus && ! addition.val().length )
+										{
+											addition.focus();
+											focus = true;
+										}
+									} );
+								else
+								{
+									focus = false;
+									additionGroup.slideUp( 'fast', function () {
+										
+										addition.val('');
+									} );
+								}
+							} );
+						} );
+					}
+				}
+			} );
+		}	
+	}
+	
+	// -----------------------------------------------------------------------------
+	// FormForm Elements
+	// -----------------------------------------------------------------------------
+	
+	// default <input> constructor, functions as base class
+	function Element( itemData )
+	{
+		// defaults
+		this.classes = ['form-control'];
+		
+		// determine ID
+		this.id = itemData.id ? itemData.id : ( itemData.name ? itemData.name : ( 'id_'+FormForm.prototype.unique_id++ ) );
+		this.name = itemData.name ? itemData.name : this.id;
+		
+		// create default attributes
+		this.attributes = { id: this.id, name: this.name };		
+
+		// placeholder attribute
+		if ( itemData.placeholder ) this.attributes.placeholder = itemData.placeholder;
+		
+		// data attribute(s)
+		if ( itemData.data )
+		{
+			var self = this; // crap!
+			$.each( itemData.data, function( key, val ) {
+				
+					self.attributes[ 'data-' + key ] = val;
+				} );
 		}
-	};
-	
-	/**
-	 * Get the field config object by name.
-	 */
-	FormForm.prototype.getFieldByName = function (name) {
-		return _.find(this.fields, function (field) {
-			return field.name == name;
-		});
-	};
-	
-	/*
-	 * Reset the form to default values.
-	 */
-	FormForm.prototype.reset = function () {};
-	
-	/*
-	 * Set form values to object
-	 */
-	FormForm.prototype.update = function (obj) {};
-	
-	FormForm.templates = {
-	
-		// group templates
-		formGroup: _.template('<div class="form-group">\
-				<label for="<%= data.id %>"><%- data.field.label %></label>\
-				<%= data.renderedData %>\
-				<span class="help-block"></span>\
-			</div>', { variable: 'data' }),
-		inputGroup: _.template('<div class="input-group">\
-				<% if (data.field.addonPrepend) { %>\
-					<div class="input-group-addon"><%- data.field.addonPrepend %></div>\
-				<% } %>\
-				<%= data.renderedData %>\
-				<% if (data.field.addonAppend) { %>\
-					<div class="input-group-addon"><%- data.field.addonAppend %></div>\
-				<% } %>\
-			</div>', { variable: 'data' }),
-		horizontalGroup: _.template('<div class="form-group">\
-				<label class="col-sm-<%= data.col1 %> control-label" for="<%= data.id %>"><%- data.field.label %></label>\
-				<div class="col-sm-<%= data.col2 %>">\
-					<%= data.renderedData %>\
-				</div>\
-				<div class="col-sm-<%= data.col1 %>"></div>\
-				<div class="col-sm-<%= data.col2 %>">\
-					<span class="help-block" style="margin: 0"></span>\
-				</div>\
-			</div>', { variable: 'data' }),
-		horizontalOffsetGroup: _.template('<div class="form-group">\
-				<div class="col-sm-offset-<%= data.col1 %> col-sm-<%= data.col2 %>">\
-					<%= data.renderedData %>\
-				</div>\
-			</div>', { variable: 'data' }),
-			
-			
-		// input templates
-		select: _.template('<select name="<%= data.name %>" class="form-control" id="<%= data.id %>"></select>', { variable: 'data' }),
 		
-		selectmultiple: _.template('<select multiple="multiple" class="form-control" name="<%= data.name %>" id="<%= data.id %>"></select>', { variable: 'data' }),
+		// classes
+		if ( itemData.classes ) this.classes.push( itemData.classes );
 		
-		input: _.template('<input type="<%= data.type %>" name="<%= data.name %>" class="form-control" id="<%= data.id %>" <% if (data.value){ %>value="<%- data.value %>"<% } %>/>', { variable: 'data' }),
-		
-		textarea: _.template('<textarea name="<%= data.name %>" class="form-control" id="<%= data.id %>" rows="2"></textarea>', { variable: 'data' }),
-		
-		file: _.template('<div class="controls" style="height: 34px;">\
-				<div class="fileinput <% if (data.value) { %>fileinput-exists<% } else { %>fileinput-new<% } %>" data-provides="fileinput">\
-					<input id="<%= data.id %>-clear_id" name="<%= data.name %>-clear" type="checkbox">\
-					<div class="input-group">\
-						<div class="form-control uneditable-input" data-trigger="fileinput">\
-							<span class="fileinput-filename"><%- data.value %></span>\
-						</div>\
-						<span class="input-group-addon btn btn-grey btn-file">\
-							<span class="fileinput-new">select File</span>\
-							<span class="fileinput-exists">\
-								<span class="glyphicon glyphicon-file" style="margin-right: 0"></span>\
-							</span>\
-							<input type="file" id="<%= data.id %>" name="<%= data.name %>">\
-						</span>\
-						<a href="#" class="input-group-addon btn btn-grey fileinput-exists" data-dismiss="fileinput">\
-							<span class="glyphicon glyphicon-remove" style="margin-right: 0"></span>\
-						</a>\
-					</div>\
-				</div>\
-			</div>', { variable: 'data' }),
-			
-		options: _.template('<% _.each(choices, function(choice) { %>\
-				<option value="<%= choice[0] %>"><%- choice[1] %></option>\
-			<% }) %>', { variable: 'choices' }),
-			
-		optGroups: _.template('<% _.each(choices, function(optgroup) { %>\
-				<optgroup label="<%- optgroup[0] %>">\
-					<% _.each(optgroup[1], function(choice) { %>\
-						<option value="<%= choice[0] %>"><%- choice[1] %></option>\
-					<% }) %>\
-				</optgroup>\
-			<% }) %>', { variable: 'choices' }),
-			
-		checkbox: _.template('<div class="checkbox">\
-				<label>\
-					<input type="checkbox" name="<%= data.name %>" <% if (data.value){ %>checked="checked"<% } %>> <%- data.label %>\
-				</label>\
-			</div>', { variable: 'data' }),
-		
-		radiogroup: _.template('<% _.each(data.choices, function(choice) { %>\
-				<div class="radio <%= data.class %>">\
-					<label>\
-						<input type="radio" value="<%= choice[0] %>" name="<%= data.name %>" id="<%= data.name %>_<%= choice[0] %>" <% if ( data.value == choice[0] ){ %>checked="checked"<% } %>> <%- choice[1] %>\
-					</label>\
-				</div>\
-			<% }) %>', { variable: 'data' }),
-		
-			
-			
-		button: _.template('<button type="<%= data.type %>" <% if (data.name) { %>name="<%= data.name %>"<% } %> class="btn <%= data.class %>">\
-				<% if (data.icon) { %><span class="glyphicon glyphicon-<%= data.icon %>"></span><% } %>\
-				<span><%- data.label %></span>\
-			</button>', { variable: 'data' })
-	};
+		// hang on to itemData
+		this.itemData = itemData;
+	}
 	
-	FormForm.typeConfig = {
-		text: {
-			template: FormForm.templates.input
-		},
-		password: {
-			template: FormForm.templates.input
-		},
-		email: {
-			template: FormForm.templates.input
-		},
-		number: {
-			template: FormForm.templates.input
-		},
-		hidden: {
-			template: FormForm.templates.input
-		},
-		textarea: {
-			template: FormForm.templates.textarea,
-			value: true
-		},
-		checkboxinput: {
-			template: FormForm.templates.checkbox
-		},
-		select: {
-			template: FormForm.templates.select,
-			value: true
-		},
-		selectmultiple: {
-			template: FormForm.templates.selectmultiple,
-			value: true
-		},
-		select2: {
-			template: FormForm.templates.select,
-			value: true,
-			select2: true
-		},
-		selectmultiple2: {
-			template: FormForm.templates.selectmultiple,
-			value: true,
-			select2: true
-		},
-		radiogroup: {
-			template: FormForm.templates.radiogroup
-		},
-		file: {
-			template: FormForm.templates.file
-		},
-		button: {
-			template: FormForm.templates.button
-		},
-		submit: {
-			template: FormForm.templates.button
+	// ---------------------------------
+	
+	Element.prototype.createGroup = function( skip_attributes )
+	{
+		var group_elements = [];
+
+		// add label (only on radiogroup a label is optional)
+		if ( this.itemData.label || this.itemData.type != 'radiogroup' )
+		{
+			var label = $('<label>')
+					.text( this.itemData.label ? this.itemData.label : 'always add a label' )
+					.attr( 'for', this.attributes.id )
+					.addClass( 'control-label' + ( this.isHorizontal ? ' col-sm-'+this.isHorizontal[0] : '' ) );
+			group_elements.push( label );
 		}
-	};
+		
+		// apply attributes *and* classes
+		if ( ! skip_attributes ) this.applyAttributes();
+		
+		// create help-block
+		var help_block = $('<span>' )
+			.html( this.itemData.error ? this.itemData.error : this.itemData[ 'help-block' ] ? this.itemData[ 'help-block' ] : '' )
+			.addClass( 'help-block' );
+		
+		// add element to group
+		if ( this.isHorizontal )
+		{
+			var group2 = $('<div>').addClass( 'col-sm-'+this.isHorizontal[1] );
+			group2.append( [ this.elem, help_block ] );
+			group_elements.push( group2 );
+		}
+		else
+		{
+			group_elements.push( this.elem );
+			group_elements.push( help_block );
+		}
+	
+		// enclose in form-group
+		var grp = $('<div>' )
+			.append( group_elements )
+			.addClass( 'form-group' );
+		if ( this.itemData.error ) grp.addClass( 'has-error' );
+		
+		return grp;
+	}
+
+	// ---------------------------------
+
+	Element.prototype.applyAttributes = function()
+	{
+		// add attributes
+		this.elem.attr( this.attributes );
+	
+		// add classes
+		if ( this.classes.length ) this.elem.addClass( this.classes.join( ' ' ) );	
+	}
+	
+	// ---------------------------------
+
+	Element.prototype.createAddons = function()
+	{
+		var addonsLeft = [];
+		var addonsRight = [];
+		var self = this; //sigh....
+		
+		// create addons
+		$.each( this.itemData.addons, function( index, addonData ) {
+
+			var addon = null;
+			var dropdown = null;
+			
+			// button addon
+			if ( addonData.type == 'button' )
+			{
+				addon = new ElementButton( addonData ).render( true );
+				if ( addonData.dropdown ) dropdown = self.createDropdown( addonData.dropdown, addonData.position == 'right' );
+			}
+			
+			// sort left/right
+			if ( addon && addonData.position == 'right' )
+			{
+				addonsRight.push( addon );
+				if ( dropdown ) addonsRight.push( dropdown );
+			}
+			else
+			{
+				addonsLeft.push( addon );
+				if ( dropdown ) addonsLeft.push( dropdown );
+			}
+		} );
+		
+		// did addons render successfully?
+		if ( addonsLeft.length || addonsRight.length )
+		{
+			// apply attributes and classes to 'this.elem'
+			this.applyAttributes();
+			
+			// create enclosing 'input-group'
+			var grp = $('<div>').addClass( 'input-group' );
+			
+			// enclose lefthand addons in 'input-group-btn' span and append
+			if ( addonsLeft.length ) grp.append( $('<span>').addClass( 'input-group-btn' ).append( addonsLeft ) );
+			
+			// append this.elem
+			grp.append( this.elem );
+
+			// enclose righthand addons in 'input-group-btn' span and append
+			if ( addonsRight.length ) grp.append( $('<span>').addClass( 'input-group-btn' ).append( addonsRight ) );
+			
+			// change this.elem to be the enclosing 'input-group'
+			this.elem = grp;
+			
+			return this.createGroup( true );
+		}
+		
+		// addons failed, return this.elem in enclosed form-group
+		return this.createGroup();
+	}
+	
+	// ---------------------------------
+	
+	Element.prototype.render = function()
+	{
+		if ( ! this.itemData.type ) this.elem = $('<input type="text">');
+		else this.elem = $('<input type="'+this.itemData.type+'">');
+
+		// set value (use 'undefined' check here to allow for falsy values, like 0)
+		if ( typeof this.itemData.value != 'undefined' ) this.elem.val( this.itemData.value );
+		
+		// create (optional) addons and enclosing group
+		if ( this.itemData.addons && this.elem.attr( 'type' ) == 'text' ) return this.createAddons();
+		else return this.createGroup();
+	}
+	
+	// ---------------------------------
+	
+	Element.prototype.createDropdown = function( options, right )
+	{
+		// create <ul>
+		var dropdown = $('<ul>').addClass( 'dropdown-menu' + ( right ? ' dropdown-menu-right' : '' ) );
+		
+		// add <li> options
+		$.each( options, function( id, label )
+		{
+			var a = $( '<a>' ).attr( { 'href':'#', 'id':id } ).text( label );
+			dropdown.append( $('<li>').append( a ) );
+		} );	
+		
+		return dropdown;
+	}
+	
+	// -----------------------------------------------------------------------------
+	
+	// Using a dummy to hold the prototype for descendants of Element.
+	// It is to avoid calling the Element constructor twice.
+	// The constructor is *not* restored, there is no need for that here.
+	// In ES5+ we could use Object.create() to more elegantly solve this
+	
+	var Tmp = function(){}; // 
+	Tmp.prototype = Element.prototype;
+	
+	// ----------------------------------------------------------------------------- select
+
+	function ElementSelect( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<select>');
+	}
+	
+	ElementSelect.prototype = new Tmp();
+	
+	// ---------------------------------
+	
+	ElementSelect.prototype.render = function()
+	{
+		var options = [];
+		$.each( this.itemData.options, function( val, label ) {
+			options.push( $('<option>').val( val ).text( label ) );
+			
+		} );
+		this.elem.append( options );
+		
+		// set value (use 'undefined' check here to allow for falsy values, like 0)
+		if ( typeof this.itemData.value != 'undefined' ) this.elem.val( this.itemData.value );
+		
+		return this.createGroup();
+	}
+	
+	// ----------------------------------------------------------------------------- button
+
+	function ElementButton( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<button>').attr('type', itemData.type);
+		this.nohelp = true;
+		this.classes = ['btn'];
+	}
+	
+	ElementButton.prototype = new Tmp();
+	
+	// ---------------------------------
+	
+	ElementButton.prototype.render = function( asAddon )
+	{
+		// add icon
+		if ( this.itemData.icon ) this.elem.append( $('<span>')
+										.addClass( 'glyphicon glyphicon-'+this.itemData.icon ) );
+
+		// set label
+		this.elem.append( $('<span>').text( 
+			( this.itemData.icon ? ' ' : '' ) 
+			+ this.itemData.label 
+			+ ( this.itemData.dropdown ? ' ' : '' ) ) );
+
+		// add dropdown adornments/attributes
+		if ( this.itemData.dropdown )
+		{
+			this.elem.append( $('<span>').addClass( 'caret' ) );
+			this.classes.push( 'dropdown-toggle' );
+			this.attributes[ 'data-toggle' ] = 'dropdown';
+		}
+		
+		// add custom or default class
+		if ( this.itemData.classes ) this.classes.push( this.itemData.classes );
+		else this.classes.push( 'btn-default' );
+
+		// apply attributes and classes
+		this.applyAttributes();
+		
+		// create dropdown 
+		if ( ( ! asAddon ) && this.itemData.dropdown )
+		{
+			// create dropdown options
+			var dropdown = this.createDropdown( this.itemData.dropdown, this.itemData.position == 'right' );
+			
+			// create enclosing btn-group and add btn and dropdown
+			return $('<div>').addClass( 'btn-group' ).append( [ this.elem, dropdown ] );
+		}
+		
+		return this.elem;
+	}
+	
+	// ----------------------------------------------------------------------------- textarea
+
+	function ElementTextarea( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<textarea>');
+	}
+	
+	ElementTextarea.prototype = new Tmp();
+
+	// ---------------------------------
+
+	ElementTextarea.prototype.render = function()
+	{
+		// set value (use 'undefined' check here to allow for falsy values, like 0)
+		if ( typeof this.itemData.value != 'undefined' ) this.elem.text( this.itemData.value );
+		
+		return this.createGroup();
+	}
+
+	// ----------------------------------------------------------------------------- static
+
+	function ElementStatic( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<p>');
+		this.classes = ['form-control-static'];
+	}
+
+	ElementStatic.prototype = new Tmp();
+
+	// ---------------------------------
+
+	ElementStatic.prototype.render = function()
+	{
+		// set value (use 'undefined' check here to allow for falsy values, like 0)
+		if ( typeof this.itemData.value != 'undefined' ) this.elem.text( this.itemData.value );
+		
+		var grp = this.createGroup();
+		
+		// remove some attributes
+		this.elem.removeAttr('name');
+		$('label', grp ).removeAttr( 'for' );
+		return grp;
+	}
+	
+	// ----------------------------------------------------------------------------- file
+
+	function ElementFile( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.classes = [ 'btn', 'btn-file' ];
+	}
+
+	ElementFile.prototype = new Tmp();
+
+	// ---------------------------------
+
+	ElementFile.prototype.render = function()
+	{
+		//TODO: improve this element:
+		// - it's not working in IE8
+		// - needs additional JS to show the file name
+		
+		// create the button from ElementButton with added 'btn-file' class
+		var tmp_data = { 'label': ( this.itemData.btnlabel ? this.itemData.btnlabel : 'set "btnlabel" prop' ) };
+		if ( ! this.itemData.classes ) tmp_data.classes = 'btn-default';
+		else tmp_data.classes = this.itemData.classes;
+		tmp_data.classes += ' btn-file';
+		tmp_data.icon = this.itemData.icon;
+		var btn = new ElementButton( tmp_data ).render();
+		
+		// apply some inline styles to hide the original file input
+		// not very elegant, but removes the requirement of additonal CSS
+		btn.css( {
+			position: 'relative',
+			overflow: 'hidden'
+			} );
+		
+		// append the file input
+		btn.append( $('<input type="file">').css( {
+			position: 'absolute',
+			top: 0,
+			right: 0,
+			'min-width': '100%',
+			'min-height': '100%',
+			'font-size': '100px',
+			'text-align': 'right',
+			filter: 'alpha(opacity=0)',
+			opacity: 0,
+			outline: 'none',
+			background: 'none',
+			cursor: 'inherit',
+			display: 'block'
+		} ) );
+		
+		//<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+		
+		this.elem = $('<div>')
+			.addClass( 'input-group' )
+			.append( [	$('<label>').addClass( 'input-group-btn' ).append( btn ),
+						$('<input type="text">').addClass( 'form-control' ).attr( 'readonly', '' ) ] );
+
+		return this.createGroup( true );
+
+	}
+	
+	// ----------------------------------------------------------------------------- hidden
+
+	function ElementHidden( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<input type="hidden">');
+	}
+
+	ElementHidden.prototype = new Tmp();
+
+	// ---------------------------------
+
+	ElementHidden.prototype.render = function()
+	{
+		// add attributes
+		this.applyAttributes();
+
+		// set value (use 'undefined' check here to allow for falsy values, like 0)
+		if ( typeof this.itemData.value != 'undefined' ) this.elem.val( this.itemData.value );
+
+		return this.elem;
+	}
+	
+	// ----------------------------------------------------------------------------- radiogroup
+
+	function ElementRadiogroup( itemData )
+	{
+		Element.call( this, itemData ); // call parent constructor
+
+		// overrides
+		this.elem = $('<div>');
+		this.classes = ['radio-group']; // this is not a Bootstrap class
+	}
+
+	ElementRadiogroup.prototype = new Tmp();
+
+	// ---------------------------------
+
+	ElementRadiogroup.prototype.render = function()
+	{
+		var options = [];
+		var itemData = this.itemData;
+		
+		// add group label (optional)
+		//if ( itemData.label ) this.elem.append( $('<label>').text( itemData.label ) );
+		
+		$.each( itemData.options, function( val, label ) {
+			
+			var input_elem = $( '<input type="radio">' )
+				.attr( 'name', itemData.name )
+				.attr( 'id', itemData.name + '_' + val )
+				.val( val );
+			if ( itemData.value == val ) input_elem.prop( 'checked', true );
+			options.push( $('<div>')
+				.addClass( 'radio' )
+				.append( $('<label>')
+					.text( label )
+					.prepend( input_elem ) ) );
+			
+		} );
+
+		// add classes
+		this.elem.addClass( this.classes.join( ' ' ) );
+
+		return this.createGroup( this.elem.append( options ), true );
+	}
+
+	// -----------------------------------------------------------------------------
+	
 	return FormForm;
+	
 })();
+
