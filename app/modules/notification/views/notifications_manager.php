@@ -23,9 +23,9 @@ $(document).on('appReady', function(e, lang) {
 
     var url = appUrl + '/module/notification/get_list',
         bu_url = appUrl + '/admin/get_bu_data',
-        bu_choices = [
-            [-1, i18n.t("notification.business_units_all")]
-        ],
+        bu_choices = {
+            '-1': i18n.t("notification.business_units_all")
+        },
         columns = [
             'notification_title',
             'notification_how',
@@ -47,20 +47,28 @@ $(document).on('appReady', function(e, lang) {
                 name: "notification_how",
                 label: i18n.t("notification.notification_how"),
                 type: "select",
-                choices: [
-                    ['email', i18n.t("email.email")]
-                ]
+                options: {
+                    'email': i18n.t("email.email")
+                }
             },
             {
                 name: "notification_who",
                 label: i18n.t("notification.notification_who"),
-                type: "email"
+                type: "email",
+                addons: [
+                    {
+						type: "button",
+                        id: "email-test", 
+						position: "right",
+						label: i18n.t("email.test"),
+					}
+                ]
             },
             {
                 name: "business_unit",
                 label: i18n.t("notification.business_unit"),
                 type: "select",
-                choices: bu_choices
+                options: bu_choices
             },
             {
                 name: "serial_number",
@@ -71,24 +79,24 @@ $(document).on('appReady', function(e, lang) {
                 name: "notification_module",
                 label: i18n.t("notification.notification_module"),
                 type: "select",
-                choices: [
-                    ['%', 'All Modules'],
-                    ['disk', 'disk'],
-                    ['munkireport', 'munkireport'],
-                    ['reportdata', 'reportdata']
-                ]
+                options: {
+                    '%': 'All Modules',
+                    'disk': 'disk',
+                    'munkireport': 'munkireport',
+                    'reportdata': 'reportdata'
+                }
             },
             {
                 name: "notification_severity",
                 label: i18n.t("notification.notification_severity"),
                 type: "select",
-                choices: [
-                    ['%', i18n.t("notification.all_levels")],
-                    ['info', i18n.t("info")],
-                    ['success', i18n.t("success")],
-                    ['warning', i18n.t("warning")],
-                    ['danger', i18n.t("danger")]
-                ]
+                options: {
+                    '%': i18n.t("notification.all_levels"),
+                    'info': i18n.t("info"),
+                    'success': i18n.t("success"),
+                    'warning': i18n.t("warning"),
+                    'danger': i18n.t("danger")
+                }                    
             },
             {
                 name: "notification_msg",
@@ -185,6 +193,26 @@ $(document).on('appReady', function(e, lang) {
                     .addClass('hidden');
             }
             
+            // Add listener to email test
+            $('#email-test').click(function(){
+                
+                var email = $('#notification_who').val(),
+                    jqxhr = $.post( appUrl + "/module/notification/emailTest", {email: email})
+                    .done(function(data){
+                        if(data.success){
+                            alert('Test email sent');
+                        }
+                        else{
+                            alert(data.error);
+                        }
+                        
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown){
+                            alert('Request failed: '+textStatus+' '+errorThrown);
+                    });
+
+            });
+            
             // Show modal    
             $('#myModal').modal('show');
         },
@@ -240,7 +268,7 @@ $(document).on('appReady', function(e, lang) {
         
         // Add business units to list
         $.each(data, function(i, el){
-            bu_choices.push([el.unitid, el.name])
+            bu_choices[el.unitid] = el.name;
         });
         
         // Render list

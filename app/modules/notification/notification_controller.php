@@ -50,6 +50,54 @@ class Notification_controller extends Module_controller
 		$obj->view('notifications_manager', $vars='', $this->module_path.'/views/');
 
 	}
+	
+	/**
+	 * Test email
+	 * 
+	 */
+	public function emailTest()
+	{
+		$obj = new View();
+		$out = array('error' => '', 'success' => false);
+		
+		if( ! $this->authorized('global')){
+			$out['error'] = 'You need to be administrator';
+			$obj->view('json', array('msg' => $out));
+			return;
+		}
+		
+		if( ! $_POST or ! isset($_POST['email']) or ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+			$out['error'] = 'No valid email address provided';
+			$obj->view('json', array('msg' => $out));
+			return;
+		}
+		
+		$email_config = conf('email');
+		if( ! $email_config){
+			$out['error'] = 'Missing email configuration in config.php';
+			$obj->view('json', array('msg' => $out));
+			return;
+		}
+		
+		include_once (APP_PATH . '/lib/munkireport/Email.php');
+		
+		$email['content'] = "This is a test email, sent by munkireport.";
+		$email['subject'] = 'Munkireport Notification Test';
+		$email['to'] = array($_POST['email'] => '');
+
+		$mailer = new munkireport\email\Email($email_config);
+		$result = $mailer->send($email);
+		if($result['error'])
+		{
+			$out['error'] = $result['error_msg'];
+		}
+		else{
+			$out['success'] = true;
+		}
+		
+		$obj->view('json', array('msg' => $out));
+
+	}
 
 	/**
 	 * REST interface, returns json with notification objects

@@ -184,7 +184,8 @@
 	"edit": "Edit",
 	"email": {
 		"email": "Email",
-		"show_machine_in_browser": "Show machine in browser"
+		"show_machine_in_browser": "Show machine in browser",
+		"test": "Test"
 	},
 	"enabled": "Enabled",
 	"encrypted": "Encrypted",
