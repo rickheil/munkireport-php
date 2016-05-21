@@ -15,9 +15,10 @@ class Notification_model extends Model {
         $this->rs['notification_who'] = ''; // bill, anne, my_corp
         $this->rs['notification_how'] = ''; // email, desktop notification
         $this->rs['business_unit'] = 0; // User is part of this BU
-        $this->rs['event_obj'] = ''; $this->rt['notification_json'] = 'BLOB'; // JSON object with last notification data
-        $this->rs['run_interval'] = 3600; // Seconds after which to notify again
+        $this->rs['event_obj'] = ''; $this->rt['event_obj'] = 'BLOB'; // JSON object with last notification data
+        $this->rs['cron'] = '@hourly'; // Cron expression
         $this->rs['last_run'] = 0; // Last run timestamp
+        $this->rs['next_run'] = 0; // Next run timestamp
         $this->rs['suspended_until'] = 0; // Suspend notification until timestamp
         $this->rs['notification_enabled'] = 1; // Active = 1, Inactive = 0
         $this->rs['last_notified'] = 0; // Last notification timestamp
@@ -98,9 +99,8 @@ class Notification_model extends Model {
     public function getDueNotifications()
     {
         $where = sprintf('notification_enabled = 1
-            AND (last_run+run_interval) < %d
-            AND suspended_until < %d',
-            time(), time()
+            AND next_run < %d',
+            time()
         );
         return $this->retrieve_many($where);
     }

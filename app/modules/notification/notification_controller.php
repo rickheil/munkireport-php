@@ -187,7 +187,7 @@ class Notification_controller extends Module_controller
 				$notificationObj->notification_module,
 				$notificationObj->notification_msg,
 				$notificationObj->notification_severity,
-				$notificationObj->last_run);
+				$notificationObj->next_run);
 
 			// If business unit defined, add extra filter
 			if ($buId != -1) {
@@ -211,7 +211,15 @@ class Notification_controller extends Module_controller
 			// Update notification obj.
 			$notificationObj->event_obj = json_encode($events);
 			if( ! $this->debug){
+				// Store last run
 				$notificationObj->last_run = $now;
+				
+				// If suspended until > now, use as offset
+				$offset = date('c', max($now, $notificationObj->suspended_until));
+				
+				// Calculate next run with CronExpression
+				$cron = Cron\CronExpression::factory($notificationObj->cron);
+				$notificationObj->next_run = $cron->getNextRunDate($offset)->getTimeStamp();
 			}
 			$notificationObj->save();
 		}
