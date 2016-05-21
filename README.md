@@ -3,10 +3,9 @@ munkireport-php
 
 ![Dashboard view](https://github.com/munkireport/munkireport-php/wiki/assets/pics/dashboard.png)
 
-This is version 2 of munkireport-php, a reporting client for [munki](https://github.com/munki/munki/). The previous version of munkireport is still available on googlecode: [munkireport-php](https://code.google.com/p/munkireport-php/).
-I moved the project to github because github is just awesome!
+Munkireport-php is a reporting client for [munki](https://github.com/munki/munki/). 
 
-This project is a complete rewrite from the previous version, which was a quick-and-dirty port from the original python based munkireport [https://code.google.com/p/munkireport/]. 
+Loosely based on the original python based munkireport [https://code.google.com/p/munkireport/]. 
 
 The project a work-in-progress, please check for updates regularly.
 
@@ -81,5 +80,6 @@ Munkireport-php makes use of these fine software packages:
 * [adLDAP](http://adldap.sourceforge.net) for authenticating against AD
 * [i18next](http://i18next.com) js library for localization
 * [libgsx](https://github.com/filipp/gsxlib) libgsx library used for GSX integration 
+* [cron-expression](https://github.com/mtdowling/cron-expression) php cron library
 
 
