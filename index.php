@@ -87,6 +87,12 @@ require( SYS_PATH.'kissmvc.php' );
 require( APP_PATH.'helpers/site_helper'.EXT );
 
 //===============================================
+// Autoload
+//===============================================
+spl_autoload_register('mr_autoloader');
+require_once APP_ROOT.'vendor/autoload.php';
+
+//===============================================
 // Timezone
 //===============================================
 date_default_timezone_set( conf('timezone') );

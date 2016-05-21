@@ -103,7 +103,7 @@ function getdbh()
 // Autoloading for Business Classes
 //===============================================
 // module classes end with _model
-function __autoload( $classname )
+function mr_autoloader( $classname )
 {
 	// Switch to lowercase filename for models
 	$classname = strtolower($classname);
