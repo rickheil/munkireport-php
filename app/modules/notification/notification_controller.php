@@ -119,12 +119,17 @@ class Notification_controller extends Module_controller
 	{
 		// TODO validate input
 		$obj = new View();
+		$now = time();
 		
+		$notificationObj = new Notification_model();
+		
+		// See if the notification is suspended
+		$offset = date('c', max($now, $notificationObj->suspended_until));
+
 		// Calculate new run date
 		$cron = Cron\CronExpression::factory($_POST['cron']);
 		$_POST['next_run'] = $cron->getNextRunDate($offset)->getTimeStamp();
 		
-		$notificationObj = new Notification_model();
 		$obj->view('json', array('msg' => $notificationObj->save($_POST)));
 		
 	}
