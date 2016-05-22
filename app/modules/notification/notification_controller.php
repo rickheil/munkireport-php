@@ -187,7 +187,7 @@ class Notification_controller extends Module_controller
 				$notificationObj->notification_module,
 				$notificationObj->notification_msg,
 				$notificationObj->notification_severity,
-				$notificationObj->next_run);
+				$notificationObj->last_run);
 
 			// If business unit defined, add extra filter
 			if ($buId != -1) {
