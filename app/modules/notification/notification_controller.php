@@ -119,8 +119,13 @@ class Notification_controller extends Module_controller
 	{
 		// TODO validate input
 		$obj = new View();
-		$notify_obj = new Notification_model();
-		$obj->view('json', array('msg' => $notify_obj->save($_POST)));
+		
+		// Calculate new run date
+		$cron = Cron\CronExpression::factory($_POST['cron']);
+		$_POST['next_run'] = $cron->getNextRunDate($offset)->getTimeStamp();
+		
+		$notificationObj = new Notification_model();
+		$obj->view('json', array('msg' => $notificationObj->save($_POST)));
 		
 	}
 	

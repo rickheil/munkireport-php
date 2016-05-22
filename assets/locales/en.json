@@ -420,14 +420,18 @@
 		"business_units_all": "All Business Units",
 		"confirm_delete": "Confirm delete notification",
 		"edit": "Edit notification",
+		"interval": "Interval",
+		"last_run": "Last Run",
 		"menu_link": "Manage Notifications",
 		"new": "New notification",
+		"next_run": "Next Run",
 		"notification_enabled": "Enabled",
 		"notification_how": "Method",
 		"notification_module": "Module",
 		"notification_severity": "Level",
 		"notification_title": "Description",
 		"notification_who": "Email address",
+		"serial_number": "Serial Number",
 		"title": "Notifications",
 		"widget": {
 			"title": "Notification rules"
@@ -520,6 +524,12 @@
 	},
 	"tags": {
 		"add_tag": "Add Tag"
+	},
+	"time": {
+		"hourly": "Hourly",
+		"daily": "Daily",
+		"weekly": "Weekly",
+		"monthly": "Monthly"
 	},
 	"timemachine": {
 		"timemachine": "Timemachine"

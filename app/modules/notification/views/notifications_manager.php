@@ -32,9 +32,9 @@ $(document).on('appReady', function(e, lang) {
             'notification_who',
             'serial_number',
             'notification_module',
-            'notification_msg',
             'notification_severity',
-            'notification_enabled',
+            'last_run',
+            'next_run',
             'business_unit'
         ],
         fields = [
@@ -73,7 +73,8 @@ $(document).on('appReady', function(e, lang) {
             {
                 name: "serial_number",
                 label: i18n.t("serial"),
-                type: "text"
+                type: "text",
+                placeholder: "serial number or '%' to match any computer"
             },
             {
                 name: "notification_module",
@@ -96,6 +97,17 @@ $(document).on('appReady', function(e, lang) {
                     'success': i18n.t("success"),
                     'warning': i18n.t("warning"),
                     'danger': i18n.t("danger")
+                }                    
+            },
+            {
+                name: "cron",
+                label: i18n.t("notification.interval"),
+                type: "select",
+                options: {
+                    '@hourly': i18n.t("time.hourly"),
+                    '@daily': i18n.t("time.daily"),
+                    '@weekly': i18n.t("time.weekly"),
+                    '@monthly': i18n.t("time.monthly")
                 }                    
             },
             {
@@ -242,7 +254,15 @@ $(document).on('appReady', function(e, lang) {
                 $.each(data, function(i,el){
                     var row = $('<tr>');
                     $.each(columns, function(j,col){
-                        row.append($('<td>').text(el[col]));
+                        var val = el[col];
+                        if(val == '%'){
+                            val = i18n.t('all')
+                        }
+                        if(col == 'last_run' || col == 'next_run'){
+                            var date = new Date(val * 1000);
+                            val = moment(date).fromNow();
+                        }
+                        row.append($('<td>').text(val));
                     });
                     // Add edit button
                     row.append($('<td>')
