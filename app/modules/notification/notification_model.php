@@ -53,7 +53,7 @@ class Notification_model extends Model {
         return $this->query($sql);        
     }
     
-    public function save($data)
+    public function saveData($data)
     {
         $id = array_key_exists('id', $data) ? $data['id'] : '';
         $this->retrieve($id);

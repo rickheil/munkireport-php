@@ -130,7 +130,7 @@ class Notification_controller extends Module_controller
 		$cron = Cron\CronExpression::factory($_POST['cron']);
 		$_POST['next_run'] = $cron->getNextRunDate($offset)->getTimeStamp();
 		
-		$obj->view('json', array('msg' => $notificationObj->save($_POST)));
+		$obj->view('json', array('msg' => $notificationObj->saveData($_POST)));
 		
 	}
 	
