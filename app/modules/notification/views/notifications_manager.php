@@ -82,9 +82,11 @@ $(document).on('appReady', function(e, lang) {
                 type: "select",
                 options: {
                     '%': 'All Modules',
+                    'certificate': 'certificate',
                     'disk': 'disk',
                     'munkireport': 'munkireport',
-                    'reportdata': 'reportdata'
+                    'reportdata': 'reportdata',
+                    'timemachine': 'timemachine'
                 }
             },
             {

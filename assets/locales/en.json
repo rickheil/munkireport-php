@@ -532,7 +532,8 @@
 		"monthly": "Monthly"
 	},
 	"timemachine": {
-		"timemachine": "Timemachine"
+		"timemachine": "Timemachine",
+		"backup_failed": "Timemachine Backup Failed: __msg__"
 	},
 	"total_clients": "Total Clients",
 	"type": "Type",

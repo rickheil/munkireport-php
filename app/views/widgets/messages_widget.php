@@ -89,6 +89,12 @@ $(document).on('appUpdate', function(){
 			item.data = item.data || '{}';
 			msg = i18n.t(item.msg, JSON.parse(item.data));
 		}
+		else if(item.module == 'timemachine'){
+			tab = '#tab_summary';
+			item.module = '';
+			item.data = item.data || '{}';
+			msg = i18n.t(item.msg, JSON.parse(item.data));
+		}
 		else if(item.module == 'reportdata'){
 			msg = i18n.t(item.msg);
 		}

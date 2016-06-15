@@ -63,11 +63,13 @@ class Timemachine_model extends Model {
         			$this->duration = 0;
         		}
         		$this->last_success = $date;
+				$type = 'success';
         	}
         	elseif( preg_match('/^Backup failed/', $message))
         	{
         		$this->last_failure = $date;
         		$this->last_failure_msg = $message;
+				$type = 'warning';
         	}
         }
         
@@ -76,6 +78,16 @@ class Timemachine_model extends Model {
         {
 			$this->timestamp = time();
         	$this->save();
+			
+			if($type == 'success')
+			{
+				$this->delete_event();
+			}
+			else
+			{
+				$data = json_encode(array('msg'=> $this->last_failure_msg));
+				$this->store_event($type, 'timemachine.backup_failed', $data);
+			}
         }
 		
 	}
