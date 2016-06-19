@@ -330,10 +330,12 @@ $(document).on('appReady', function(e, lang) {
 		// Draw Crashplan Unit
 		var mr_table_data = '<tr><td>'+i18n.t('no_data')+'</td></tr>';
 		$.each(cpData, function(index, item){
+			var last_success = +item.last_success ? moment(item.last_success * 1000).fromNow() : i18n.t('never');
+			var last_failure = +item.last_failure ? moment(item.last_failure * 1000).fromNow() : i18n.t('never');
 			mr_table_data = '<tr><th>'+i18n.t('backup.destination')+'</th><td>'+item.destination+'<td></tr>';
-			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.last_success')+'</th><td>'+moment(item.last_success * 1000).fromNow()+'<td></tr>';
+			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.last_success')+'</th><td>'+last_success+'<td></tr>';
 			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.duration')+'</th><td>'+moment.duration(item.duration, "seconds").humanize()+'<td></tr>';
-			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.last_failure')+'</th><td>'+moment(item.last_failure * 1000).fromNow()+'<td></tr>';
+			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.last_failure')+'</th><td>'+last_failure+'<td></tr>';
 			mr_table_data = mr_table_data + '<tr><th>'+i18n.t('backup.last_failure_msg')+'</th><td>'+item.reason+'<td></tr>';
 		});
 		$('table.mr-crashplan-table')

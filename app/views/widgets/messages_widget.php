@@ -83,6 +83,12 @@ $(document).on('appUpdate', function(){
 			item.data = item.data || '{}';
 			msg = i18n.t(item.msg, JSON.parse(item.data));
 		}
+		else if(item.module == 'crashplan'){
+			tab = '#tab_summary';
+			item.module = '';
+			item.data = item.data || '{}';
+			msg = i18n.t(item.msg, JSON.parse(item.data));
+		}
 		else if(item.module == 'diskreport'){
 			tab = '#tab_storage-tab';
 			item.module = '';

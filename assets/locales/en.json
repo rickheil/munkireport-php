@@ -148,6 +148,8 @@
 		"usage": "Processor Usage"
 	},
 	"crashplan": {
+		"backup_failed": "CrashPlan Backup failed: __reason__",
+		"backup_failed_plural": "__count__ CrashPlan backup destinations failed",
 		"listing": {
 			"title": "CrashPlan Report"
 		},
@@ -410,6 +412,7 @@
 		"outbound_traffic": "Outbound Traffic",
 		"remote_ip": "Remote IP Address"
 	},
+	"never": "Never",
 	"new_client": "New Client",
 	"new_client_plural": "New Clients",
 	"no_clients": "No Clients",

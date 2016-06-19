@@ -83,6 +83,7 @@ $(document).on('appReady', function(e, lang) {
                 options: {
                     '%': 'All Modules',
                     'certificate': 'certificate',
+                    'crashplan': 'crashplan',
                     'disk': 'disk',
                     'munkireport': 'munkireport',
                     'reportdata': 'reportdata',

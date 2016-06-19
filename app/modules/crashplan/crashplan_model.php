@@ -37,7 +37,13 @@ class Crashplan_model extends Model {
 		// Delete previous entries
 		$serial_number = $this->serial_number;
 		$this->delete_where('serial_number=?', $serial_number);
-
+		
+		//
+		$messages = array(
+			'errors' => array(),
+			'warnings' => array()
+		);
+		
 		// Parse data
 		$lines = explode("\n", $data);
 		$headers =  str_getcsv(array_shift($lines));
@@ -50,8 +56,36 @@ class Crashplan_model extends Model {
 				$this->serial_number = $serial_number;
 				$this->timestamp = time();
 				$this->save();
+				
+				// Events
+				if($this->last_success < $this->last_failure)
+				{
+					$messages['errors'][] = array(
+						'destination' => $this->destination,
+						'reason' => $this->reason,
+					);
+				}
+				
 			}
-		}				
+		}
+		
+		// Only store if there is data
+		if($messages['errors'] ){
+			$type = 'danger';
+			$msg = 'crashplan.backup_failed';
+			if(count($messages['errors']) == 1){
+				$out = array_pop($messages['errors']);
+			}
+			else{
+				$out = array('count' => count($messages['errors']));
+			}
+			$data = json_encode($out);
+			$this->store_event($type, $msg, $data);
+		}
+		else{
+			$this->delete_event();
+		}
+	
 	} // end process()
 	
 	/**
