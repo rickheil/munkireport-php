@@ -262,8 +262,13 @@ $(document).on('appReady', function(e, lang) {
                             val = i18n.t('all')
                         }
                         if(col == 'last_run' || col == 'next_run'){
-                            var date = new Date(val * 1000);
-                            val = moment(date).fromNow();
+                            if(val){
+                                var date = new Date(val * 1000);
+                                val = moment(date).fromNow();
+                            }
+                            else{
+                                val = i18n.t('never');
+                            }
                         }
                         row.append($('<td>').text(val));
                     });
