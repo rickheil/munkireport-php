@@ -1,11 +1,16 @@
 <?php
 
+namespace models;
+
+use munkireport\Model as Model;
+use \PDO as PDO;
+
 class Machine_group extends Model
 {
     
     public function __construct($groupid = '', $property = '')
     {
-        parent::__construct('id', strtolower(get_class($this))); //primary key, tablename
+        parent::__construct('id', 'machine_group'); //primary key, tablename
         $this->rs['id'] = '';
         $this->rs['groupid'] = 0;
         $this->rs['property'] = '';

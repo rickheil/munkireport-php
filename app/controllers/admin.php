@@ -1,4 +1,13 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use models\Business_unit as Business_unit;
+use models\Machine_group as Machine_group;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+
 class admin extends Controller
 {
     public function __construct()

@@ -1,5 +1,9 @@
 <?php
 
+namespace models;
+
+use munkireport\Model as Model;
+
 class Hash extends Model
 {
     
