@@ -4,9 +4,12 @@
 
 namespace munkireport;
 
-use lib\CFPropertyList\CFPropertyList, lib\CFPropertyList\CFDictionary,
-    lib\CFPropertyList\CFNumber, lib\CFPropertyList\CFString,
-    lib\CFPropertyList\CFDictionary, lib\CFPropertyList\CFArray;
+use lib\CFPropertyList\CFPropertyList;
+use lib\CFPropertyList\CFDictionary;
+use lib\CFPropertyList\CFNumber;
+use lib\CFPropertyList\CFString;
+use lib\CFPropertyList\CFDictionary;
+use lib\CFPropertyList\CFArray;
 
 class ArrayToPlist
 {

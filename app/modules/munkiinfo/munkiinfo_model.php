@@ -2,7 +2,8 @@
 
 namespace modules\munkiinfo;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class munkiinfo_model extends Model
 {

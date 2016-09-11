@@ -2,7 +2,8 @@
 
 namespace modules\location;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Location_model extends Model
 {

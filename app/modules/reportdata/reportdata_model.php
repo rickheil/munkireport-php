@@ -5,7 +5,6 @@ namespace modules\reportdata;
 use munkireport\Model as Model;
 use lib\CFPropertyList\CFPropertyList;
 
-
 class Reportdata_model extends Model
 {
 

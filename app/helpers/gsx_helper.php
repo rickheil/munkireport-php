@@ -1,6 +1,7 @@
 <?php
 
-use modules\warranty\Warranty_model, modules\machine\Machine_model;
+use modules\warranty\Warranty_model;
+use modules\machine\Machine_model;
 
 /**
  *

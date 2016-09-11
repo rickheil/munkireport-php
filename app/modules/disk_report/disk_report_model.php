@@ -2,7 +2,8 @@
 
 namespace modules\disk_report;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Disk_report_model extends Model
 {

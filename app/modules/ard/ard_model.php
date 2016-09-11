@@ -2,7 +2,8 @@
 
 namespace modules\ard;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Ard_model extends Model
 {

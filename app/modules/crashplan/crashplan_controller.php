@@ -6,7 +6,6 @@ use munkireport\Module_controller as Module_controller;
 use modules\reportdata\Reportdata_model as Reportdata_model;
 use munkireport\View as View;
 
-
 /**
  * Crashplan_controller class
  *

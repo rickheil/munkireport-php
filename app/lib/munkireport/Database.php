@@ -8,7 +8,9 @@ use \PDOException as PDOException;
 class Database
 {
     
-    private $config, $dbh, $error;
+    private $config
+    private $dbh;
+    private $error;
 
     public function __construct($config)
     {

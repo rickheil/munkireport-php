@@ -2,7 +2,8 @@
 // @author gmarnin
 namespace modules\filevault_escrow;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Filevault_escrow_model extends Model
 {

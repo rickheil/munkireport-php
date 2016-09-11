@@ -2,7 +2,8 @@
 
 namespace modules\managedinstalls;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class managedinstalls_model extends Model
 {

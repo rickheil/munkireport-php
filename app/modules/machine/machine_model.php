@@ -2,7 +2,8 @@
 
 namespace modules\machine;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Machine_model extends Model
 {

@@ -2,7 +2,9 @@
 
 namespace modules\deploystudio;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList, \Exception;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
+use \Exception;
 
 class Deploystudio_helper
 {
@@ -24,7 +26,7 @@ class Deploystudio_helper
         $url = "{$deploystudio_server}/computers/get/entry?id={$deploystudio_model->serial_number}";
         $deploystudio_computer_result = $this->get_deploystudio_url($url);
         
-        if($deploystudio_computer_result === false){
+        if ($deploystudio_computer_result === false) {
             throw new Exception("Curl error: ".curl_error($this->ch), 1);
         }
 

@@ -2,7 +2,8 @@
 
 namespace modules\installhistory;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Installhistory_model extends Model
 {

@@ -2,7 +2,9 @@
 
 namespace modules\inventory;
 
-use \PDO, munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use \PDO;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
 
 class Inventory_model extends Model
 {
