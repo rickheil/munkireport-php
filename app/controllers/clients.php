@@ -5,6 +5,11 @@ namespace controllers;
 use munkireport\Controller as Controller;
 use modules\machine\Machine_model as Machine_model;
 use modules\reportdata\Reportdata_model as Reportdata_model;
+use modules\disk_report\Disk_report_model as Disk_report_model;
+use modules\warranty\Warranty_model as Warranty_model;
+use modules\localadmin\Localadmin_model as Localadmin_model;
+use modules\security\Security_model as Security_model;
+
 use munkireport\View as View;
 
 class clients extends Controller
