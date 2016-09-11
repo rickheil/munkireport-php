@@ -1,4 +1,10 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use munkireport\View as View;
+
 class install extends Controller
 {
     public function __construct()

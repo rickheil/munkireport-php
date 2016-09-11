@@ -1,4 +1,11 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use munkireport\View as View;
+use modules\machine\Machine_model as Machine_model;
+
 class manager extends Controller
 {
     public function __construct()
