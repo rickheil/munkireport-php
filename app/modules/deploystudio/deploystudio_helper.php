@@ -1,12 +1,12 @@
 <?php
 
-namespace module\deploystudio;
+namespace modules\deploystudio;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model, lib\CFPropertyList\CFPropertyList, \Exception;
 
 class Deploystudio_helper
 {
-    
+    private $ch; // Curl Handler
     /**
      *
      * @param object deploystudio model instance
@@ -23,6 +23,10 @@ class Deploystudio_helper
         // Get computer data from DeployStudio
         $url = "{$deploystudio_server}/computers/get/entry?id={$deploystudio_model->serial_number}";
         $deploystudio_computer_result = $this->get_deploystudio_url($url);
+        
+        if($deploystudio_computer_result === false){
+            throw new Exception("Curl error: ".curl_error($this->ch), 1);
+        }
 
         $plist = new CFPropertyList();
         $plist->parse($deploystudio_computer_result);
@@ -64,14 +68,14 @@ class Deploystudio_helper
         $deploystudio_username = conf('deploystudio_username');
         $deploystudio_password = conf('deploystudio_password');
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, "$deploystudio_username:$deploystudio_password");
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $return = curl_exec($ch);
+        $this->ch = curl_init();
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($this->ch, CURLOPT_USERPWD, "$deploystudio_username:$deploystudio_password");
+        curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $return = curl_exec($this->ch);
         return $return;
     }
 
@@ -85,7 +89,7 @@ class Deploystudio_helper
         $deploystudio_server = conf('deploystudio_server');
         $url = "{$deploystudio_server}/workflows/get/entry?id={$workflow_id}";
         $deploystudio_auto_workflow_result = $this->get_deploystudio_url($url);
-        $workflow = new \CFPropertyList();
+        $workflow = new CFPropertyList();
         $workflow->parse($deploystudio_auto_workflow_result);
         $deploystudio_auto_workflow_result = $workflow->toArray();
         return $deploystudio_auto_workflow_result['title'];

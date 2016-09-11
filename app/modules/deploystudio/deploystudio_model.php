@@ -75,8 +75,7 @@ class Deploystudio_model extends Model
         // Check if we should enable DeployStudio lookup
         if (conf('deploystudio_enable')) {
             // Load deploystudio helper
-                require_once($this->module_dir.'/lib/deploystudio_helper.php');
-                $ds_helper = new munkireport\module\deploystudio\Deploystudio_helper;
+                $ds_helper = new Deploystudio_helper;
                 $ds_helper->pull_deploystudio_data($this);
 
                 // ^^ Comment and uncomment to turn off and on
