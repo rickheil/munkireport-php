@@ -1,4 +1,8 @@
 <?php
+
+namespace lib\CFPropertyList;
+use \Iterator, \DOMDocument, \DOMException, DOMImplementation, DOMNode;
+
 /**
  * CFPropertyList
  * {@link http://developer.apple.com/documentation/Darwin/Reference/ManPages/man5/plist.5.html Property Lists}
@@ -14,7 +18,7 @@
  * @example example-create-03.php Using {@link CFTypeDetector} with {@link CFDate} and {@link CFData}
  * @example example-modify-01.php Read, modify and save a PropertyList
  */
-
+ 
 /**
  * Require IOException, PListException, CFType and CFBinaryPropertyList
  */
@@ -271,7 +275,7 @@ class CFPropertyList extends CFBinaryPropertyList implements Iterator {
       // skip if we can't handle the element
       if(!isset(self::$types[$n->nodeName])) continue;
 
-      $class = self::$types[$n->nodeName];
+      $class = 'lib\\CFPropertyList\\'.self::$types[$n->nodeName];
       $key = null;
 
       // find previous <key> if possible
