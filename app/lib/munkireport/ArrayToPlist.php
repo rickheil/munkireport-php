@@ -4,6 +4,10 @@
 
 namespace munkireport;
 
+use lib\CFPropertyList\CFPropertyList, lib\CFPropertyList\CFDictionary,
+    lib\CFPropertyList\CFNumber, lib\CFPropertyList\CFString,
+    lib\CFPropertyList\CFDictionary, lib\CFPropertyList\CFArray;
+
 class ArrayToPlist
 {
     
@@ -11,13 +15,12 @@ class ArrayToPlist
     
     public function __construct()
     {
-        require_once(APP_PATH . 'lib/CFPropertyList/CFPropertyList.php');
-        $this->parser = new \CFPropertyList();
+        $this->parser = new CFPropertyList();
     }
 
     public function parse($array)
     {
-        $this->parser->add($dict = new \CFDictionary());
+        $this->parser->add($dict = new CFDictionary());
         $this->addItem($dict, $array);
         
         return $this->parser->toXML();
@@ -35,9 +38,9 @@ class ArrayToPlist
     public function typeValue($value)
     {
         if (is_numeric($value)) {
-            return new \CFNumber($value);
+            return new CFNumber($value);
         } else {
-            return new \CFString($value);
+            return new CFString($value);
         }
     }
 
@@ -56,12 +59,12 @@ class ArrayToPlist
             } else {
                 if ($this->has_string_keys($value)) {
                     if ($parent == 'CFArray') {
-                        $dict->add($newdict = new \CFDictionary());
+                        $dict->add($newdict = new CFDictionary());
                     } else {
-                        $dict->add($key, $newdict = new \CFDictionary());
+                        $dict->add($key, $newdict = new CFDictionary());
                     }
                 } else {
-                    $dict->add($key, $newdict = new \CFArray());
+                    $dict->add($key, $newdict = new CFArray());
                 }
                 
                 $this->addItem($newdict, $value);

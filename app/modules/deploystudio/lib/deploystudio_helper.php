@@ -1,6 +1,8 @@
 <?php
 
-namespace munkireport\module\deploystudio;
+namespace module\deploystudio;
+
+use munkireport\Model, lib\CFPropertyList\CFPropertyList;
 
 class Deploystudio_helper
 {
@@ -22,8 +24,7 @@ class Deploystudio_helper
         $url = "{$deploystudio_server}/computers/get/entry?id={$deploystudio_model->serial_number}";
         $deploystudio_computer_result = $this->get_deploystudio_url($url);
 
-        require_once(APP_PATH . 'lib/CFPropertyList/CFPropertyList.php');
-        $plist = new \CFPropertyList();
+        $plist = new CFPropertyList();
         $plist->parse($deploystudio_computer_result);
 
         $plist = $plist->toArray();
