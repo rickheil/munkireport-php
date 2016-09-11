@@ -2,7 +2,9 @@
 
 namespace modules\bluetooth;
 
-use munkireport\Model, lib\CFPropertyList\CFPropertyList;
+use munkireport\Model;
+use lib\CFPropertyList\CFPropertyList;
+use \Exception;
 
 class Bluetooth_model extends Model
 {
@@ -72,9 +74,8 @@ class Bluetooth_model extends Model
         
         // Check for old-style reports
         if (strpos($plist, '<?xml') === false) {
-        // Load legacy support
-            require_once(APP_PATH . 'modules/bluetooth/lib/Bt_legacy_support.php');
-            $bt = new munkireport\Bt_legacy_support($plist);
+            // Load legacy support
+            $bt = new Bt_legacy_support($plist);
             $mylist = $bt->toArray();
         } else {
             $parser = new CFPropertyList();

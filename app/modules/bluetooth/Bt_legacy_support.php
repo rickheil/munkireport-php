@@ -1,6 +1,6 @@
 <?php
 
-namespace munkireport;
+namespace modules\bluetooth;
 
 /**
  * Utility for legacy bluetooth support
