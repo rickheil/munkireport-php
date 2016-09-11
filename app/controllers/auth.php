@@ -1,4 +1,17 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use models\Business_unit as Business_unit;
+use models\Machine_group as Machine_group;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+use lib\munkireport\Recaptcha as Recaptcha;
+use lib\authLDAP\authLDAP as authLDAP;
+use lib\adLDAP\adLDAP as adLDAP;
+use lib\phpass\PasswordHash as PasswordHash;
+
 class auth extends Controller
 {
     // Authentication mechanisms we handle
@@ -55,8 +68,7 @@ class auth extends Controller
         if (conf('recaptchaloginpublickey')) {
         //recaptcha enabled by admin; checking it
             if ($response = post('g-recaptcha-response')) {
-                include_once(APP_PATH . '/lib/munkireport/Recaptcha.php');
-                $recaptchaObj = new munkireport\Recaptcha(conf('recaptchaloginprivatekey'));
+                $recaptchaObj = new Recaptcha(conf('recaptchaloginprivatekey'));
                 $remote_ip = getRemoteAddress();
                 
                 if (! $recaptchaObj->verify($response, $remote_ip)) {
@@ -110,7 +122,6 @@ class auth extends Controller
 
                 case 'ldap': // LDAP authentication
                     if ($login && $password) {
-                        include_once(APP_PATH . '/lib/authLDAP/authLDAP.php');
                         $ldap_auth_obj = new Auth_ldap($auth_data);
                         if ($ldap_auth_obj->authenticate($login, $password)) {
                         //alert('Authenticated');
@@ -161,7 +172,6 @@ class auth extends Controller
                     if ($_POST && $login && $password) {
                     //include the class and create a connection
                         //TODO: wrap this include somewhere else?
-                        include_once(APP_PATH . '/lib/adLDAP/adLDAP.php');
                         try {
                             $adldap = new adLDAP($auth_data);
                         } catch (adLDAPException $e) {
@@ -380,7 +390,6 @@ class auth extends Controller
 
     public function load_phpass()
     {
-        require(APP_PATH . '/lib/phpass-0.3/PasswordHash.php');
         return new PasswordHash(8, true);
     }
 }
