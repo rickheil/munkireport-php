@@ -1,5 +1,7 @@
 <?php
 
+use modules\warranty\Warranty_model, modules\machine\Machine_model;
+
 /**
  *
  * @param object gsx model instance

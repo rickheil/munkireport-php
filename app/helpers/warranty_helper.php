@@ -1,5 +1,7 @@
 <?php
 
+use modules\machine\Machine_model, modules\reportdata\Reportdata_model;
+
 /**
  * Unfortunately we have to scrape the page as Apple discontinued the json api
  *
