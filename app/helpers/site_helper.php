@@ -2,6 +2,8 @@
 
 use munkireport\View as View;
 use modules\reportdata\Reportdata_model as Reportdata_model;
+use models\Machine_group as Machine_group;
+use modules\event\Event_model as Event_model;
 
 // Munkireport version (last number is number of commits)
 $GLOBALS['version'] = '2.10.0.2143';
@@ -344,7 +346,7 @@ function get_filtered_groups()
  **/
 function store_event($serial, $module = '', $type = '', $msg = 'no_message', $data = '')
 {
-    $evtobj = new modules\event\Event_model($serial, $module);
+    $evtobj = new Event_model($serial, $module);
     $evtobj->store($type, $msg, $data);
 }
 
@@ -356,7 +358,7 @@ function store_event($serial, $module = '', $type = '', $msg = 'no_message', $da
  **/
 function delete_event($serial, $module = '')
 {
-    $evtobj = new modules\event\Event_model();
+    $evtobj = new Event_model();
     $evtobj->reset($serial, $module);
 }
 

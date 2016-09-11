@@ -1,4 +1,13 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use modules\event\Event_model as Event_model;
+use models\Hash as Hash;
+use lib\munkireport\Unserializer as Unserializer;
+
 class report extends Controller
 {
     
@@ -70,12 +79,12 @@ class report extends Controller
             
             //$req_items = unserialize($_POST['items']); //Todo: check if array
             include_once(APP_PATH . '/lib/munkireport/Unserializer.php');
-            $unserializer = new munkireport\Unserializer($_POST['items']);
+            $unserializer = new Unserializer($_POST['items']);
             $req_items = $unserializer->unserialize();
 
             // Reset messages for this client
             if (isset($req_items['msg'])) {
-                $msg_obj = new Messages_model();
+                $msg_obj = new Event_model();
                 $msg_obj->reset($_POST['serial']);
                 unset($req_items['msg']);
             }
@@ -130,8 +139,7 @@ class report extends Controller
             $this->error("No items in POST");
         }
 
-        include_once(APP_PATH . '/lib/munkireport/Unserializer.php');
-        $unserializer = new munkireport\Unserializer($_POST['items']);
+        $unserializer = new Unserializer($_POST['items']);
         $arr = $unserializer->unserialize();
 
 
@@ -167,26 +175,19 @@ class report extends Controller
                 $name = $module . '_model';
             }
 
-            $model_path = APP_PATH."modules/${module}/";
-
             // Capitalize classname
-               $classname = ucfirst($name);
+            $classname = ucfirst($name);
             
-            // Todo: prevent admin and user models, sanitize $name
-            if (! file_exists($model_path . $name . '.php')) {
-                $this->msg("Model not found: $name");
+            $class_to_instantiate = "modules\\$module\\$classname";
+            
+            // Load model
+            if (! $class = new $class_to_instantiate($_POST['serial'])) {
+                $this->msg("Class not found: $class_to_instantiate");
                 continue;
             }
-            require_once($model_path . $name . '.php');
-
-            if (! class_exists($classname, false)) {
-                $this->msg("Class not found: $classname");
-                continue;
-            }
-
-               // Load model
-            $class = new $classname($_POST['serial']);
-
+            
+            // Load model
+            $class = new $class_to_instantiate($_POST['serial']);
             
             if (! method_exists($class, 'process')) {
                 $this->msg("No process method in: $classname");
