@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\event;
+
+use munkireport\Model as Model;
+
 /**
  * Event class
  *

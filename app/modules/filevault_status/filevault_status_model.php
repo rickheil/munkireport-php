@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\filevault_status;
+
+use munkireport\Model as Model;
+
 class Filevault_status_model extends Model
 {
 

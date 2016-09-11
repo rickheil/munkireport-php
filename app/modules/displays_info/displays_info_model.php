@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\displays_info;
+
+use munkireport\Model as Model;
+
 class Displays_info_model extends Model
 {
 

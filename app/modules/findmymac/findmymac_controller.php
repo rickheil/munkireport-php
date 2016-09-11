@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\findmymac;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * FindMyMac manifest status module class
  *

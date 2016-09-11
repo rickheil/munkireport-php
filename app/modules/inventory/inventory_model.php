@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\inventory;
+
+use munkireport\Model as Model;
+
 class Inventory_model extends Model
 {
     

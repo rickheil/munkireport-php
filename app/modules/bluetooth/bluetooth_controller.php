@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\bluetooth;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * bluetooth status module class
  *

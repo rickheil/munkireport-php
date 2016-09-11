@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\munkiinfo;
+
+use munkireport\Model as Model;
+
 class munkiinfo_model extends Model
 {
 

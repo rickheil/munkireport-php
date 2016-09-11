@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\timemachine;
+
+use munkireport\Model as Model;
+
 class Timemachine_model extends Model
 {
     

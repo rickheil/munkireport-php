@@ -1,4 +1,10 @@
 <?php
+
+namespace modules\directory_service;
+
+use munkireport\Model as Model;
+use modules\machine\Machine_model as Machine_model;
+
 class Directory_service_model extends Model
 {
 

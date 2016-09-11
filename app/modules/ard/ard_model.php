@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\ard;
+
+use munkireport\Model as Model;
+
 class Ard_model extends Model
 {
 

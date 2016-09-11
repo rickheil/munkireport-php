@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\printer;
+
+use munkireport\Model as Model;
+
 class Printer_model extends Model
 {
     public function __construct($serial = '')

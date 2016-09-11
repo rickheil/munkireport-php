@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\localadmin;
+
+use munkireport\Model as Model;
+
 class Localadmin_model extends Model
 {
 

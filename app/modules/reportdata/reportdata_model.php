@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\reportdata;
+
+use munkireport\Model as Model;
+
+
 class Reportdata_model extends Model
 {
 

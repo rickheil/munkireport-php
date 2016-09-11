@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\network;
+
+use munkireport\Model as Model;
+
 class Network_model extends Model
 {
     

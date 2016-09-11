@@ -1,11 +1,5 @@
 	<?$this->view('partials/head')?>
 
-<? //Initialize models needed for the table
-new Machine_model;
-new Reportdata_model;
-new Bluetooth_model;
-?>
-
 <div class="container">
 
 	<div class="row">

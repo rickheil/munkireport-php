@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\tag;
+
+use munkireport\Model as Model;
+
 class Tag_model extends Model
 {
     

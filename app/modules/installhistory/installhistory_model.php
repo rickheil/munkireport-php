@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\installhistory;
+
+use munkireport\Model as Model;
+
 class Installhistory_model extends Model
 {
 

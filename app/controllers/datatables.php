@@ -1,4 +1,11 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use models\Tablequery as Tablequery;
+use munkireport\View as View;
+
 class datatables extends Controller
 {
     public function __construct()

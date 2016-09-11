@@ -1,4 +1,10 @@
 <?php
+
+namespace modules\profile;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * profile list module class
  *

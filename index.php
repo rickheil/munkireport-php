@@ -91,11 +91,11 @@ require( APP_PATH.'helpers/site_helper'.EXT );
 //===============================================
 date_default_timezone_set( conf('timezone') );
 
-set_exception_handler('uncaught_exception_handler');
+//set_exception_handler('munkireport\uncaught_exception_handler');
 
 
 //===============================================
 // Start the controller
 //===============================================
 $uri_protocol = conf('uriProtocol');
-new Engine($conf['routes'],'show','index',$conf['uri_protocol']);
+new munkireport\Engine($conf['routes'],'show','index',$conf['uri_protocol']);

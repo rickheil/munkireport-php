@@ -1,4 +1,10 @@
 <?php
+
+namespace modules\security;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * Security module class
  *

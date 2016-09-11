@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\crashplan;
+
+use munkireport\Model as Model;
+
 class Crashplan_model extends Model
 {
     

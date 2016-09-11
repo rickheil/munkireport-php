@@ -1,5 +1,10 @@
 <?php
 
+namespace models;
+
+use munkireport\Model as Model;
+use \PDO as PDO;
+
 class Tablequery
 {
     

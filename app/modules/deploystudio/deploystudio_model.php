@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\deploystudio;
+
+use munkireport\Model as Model;
+
 class Deploystudio_model extends Model
 {
     

@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\warranty;
+
+use munkireport\Model as Model;
+
 class Warranty_model extends Model
 {
     

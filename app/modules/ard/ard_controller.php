@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\ard;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * Ard_controller class
  *

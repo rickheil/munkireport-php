@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\gsx;
+
+use munkireport\Model as Model;
+
 class gsx_model extends Model
 {
     

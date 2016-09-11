@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\location;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * location status module class
  *

@@ -1,5 +1,11 @@
 <?php
 
+namespace modules\machine;
+
+use munkireport\Module_controller as Module_controller;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+
 /**
  * Machine module class
  *

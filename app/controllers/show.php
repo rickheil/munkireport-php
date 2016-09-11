@@ -1,4 +1,10 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use munkireport\View as View;
+
 class show extends Controller
 {
     public function __construct()

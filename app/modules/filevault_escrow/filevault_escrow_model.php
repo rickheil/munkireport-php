@@ -1,5 +1,9 @@
 <?php
 // @author gmarnin
+namespace modules\filevault_escrow;
+
+use munkireport\Model as Model;
+
 
 class Filevault_escrow_model extends Model
 {

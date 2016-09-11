@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\machine;
+
+use munkireport\Model as Model;
+
 class Machine_model extends Model
 {
 

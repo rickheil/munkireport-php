@@ -1,4 +1,10 @@
 <?php
+
+namespace munkireport;
+
+use \PDO as PDO;
+use models\Migration as Migration;
+
 require('kissmvc_core.php');
 
 //===============================================================
@@ -412,7 +418,7 @@ class Model extends KISS_Model
                     
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
         // If the prepare fails, the table does not exist.
 
             // Get columns

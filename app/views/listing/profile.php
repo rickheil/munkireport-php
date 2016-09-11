@@ -1,10 +1,5 @@
 <?php $this->view('partials/head'); ?>
 
-<?php //Initialize models needed for the table
-  new Profile_model;
-  new Machine_model;
-?>
-
 <div class="container">
 
   <div class="row">
@@ -30,7 +25,7 @@
 		</thead>
 
 		<tbody>
-	<?php $profile_item_obj = new Profile_model();
+	<?php $profile_item_obj = new modules\profile\Profile_model();
     $sql = 'profile_name, COUNT(DISTINCT serial_number) AS num_profiles, payload_name, GROUP_CONCAT(DISTINCT payload_data) as payload_data';
     $where = '1 GROUP BY profile_name, payload_name';
 	$items = $profile_item_obj->select($sql, $where);

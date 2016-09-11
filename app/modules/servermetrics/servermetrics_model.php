@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\servermetrics;
+
+use munkireport\Model as Model;
+
 class Servermetrics_model extends Model
 {
 

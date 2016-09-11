@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\power;
+
+use munkireport\Model as Model;
+
 class Power_model extends Model
 {
     public function __construct($serial = '')

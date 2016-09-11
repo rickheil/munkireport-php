@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\profile;
+
+use munkireport\Model as Model;
+
 class Profile_model extends Model
 {
     public function __construct($serial = '')

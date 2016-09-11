@@ -1,5 +1,7 @@
 <?php
 
+use munkireport\View as View;
+
 // Munkireport version (last number is number of commits)
 $GLOBALS['version'] = '2.10.0.2143';
 
@@ -96,20 +98,23 @@ function getdbh()
 // Autoloading for Business Classes
 //===============================================
 // module classes end with _model
-function __autoload($classname)
-{
-    // Switch to lowercase filename for models
-    $classname = strtolower($classname);
+// function __autoload($classname)
+// {
+//     // Switch to lowercase filename for models
+//     $classname = strtolower($classname);
+// 
+//     if (substr($classname, -4) == '_api') {
+//         require_once(APP_PATH.'modules/'.substr($classname, 0, -4).'/api'.EXT);
+//     } elseif (substr($classname, -6) == '_model') {
+//         $module = substr($classname, 0, -6);
+//         require_once(APP_PATH."modules/${module}/${module}_model".EXT);
+//     } else {
+//         require_once(APP_PATH.'models/'.$classname.EXT);
+//     }
+// }
 
-    if (substr($classname, -4) == '_api') {
-        require_once(APP_PATH.'modules/'.substr($classname, 0, -4).'/api'.EXT);
-    } elseif (substr($classname, -6) == '_model') {
-        $module = substr($classname, 0, -6);
-        require_once(APP_PATH."modules/${module}/${module}_model".EXT);
-    } else {
-        require_once(APP_PATH.'models/'.$classname.EXT);
-    }
-}
+// Include autoloader
+require_once(APP_PATH . 'bootstrap/autoload.php');
 
 function url($url = '', $fullurl = false)
 {
@@ -338,7 +343,7 @@ function get_filtered_groups()
  **/
 function store_event($serial, $module = '', $type = '', $msg = 'no_message', $data = '')
 {
-    $evtobj = new Event_model($serial, $module);
+    $evtobj = new modules\event\Event_model($serial, $module);
     $evtobj->store($type, $msg, $data);
 }
 
@@ -350,7 +355,7 @@ function store_event($serial, $module = '', $type = '', $msg = 'no_message', $da
  **/
 function delete_event($serial, $module = '')
 {
-    $evtobj = new Event_model();
+    $evtobj = new modules\event\Event_model();
     $evtobj->reset($serial, $module);
 }
 

@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\managedinstalls;
+
+use munkireport\Model as Model;
+
 class managedinstalls_model extends Model
 {
         

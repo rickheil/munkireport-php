@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\certificate;
+
+use munkireport\Model as Model;
+
 class Certificate_model extends Model
 {
     

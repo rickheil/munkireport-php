@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\warranty;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * Warranty module class
  *

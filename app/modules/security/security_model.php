@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\security;
+
+use munkireport\Model as Model;
+
 class Security_model extends Model
 {
     public function __construct($serial = '')

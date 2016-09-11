@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\localadmin;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * Filevault status module class
  *

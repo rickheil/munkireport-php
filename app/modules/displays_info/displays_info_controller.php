@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\displays_info;
+
+use munkireport\Module_controller as Module_controller;
+use munkireport\View as View;
+
 /**
  * Displays module class
  *

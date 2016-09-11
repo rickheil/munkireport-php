@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\service;
+
+use munkireport\Model as Model;
+
 class Service_model extends Model
 {
     

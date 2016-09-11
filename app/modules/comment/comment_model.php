@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\comment;
+
+use munkireport\Model as Model;
+
 class Comment_model extends Model
 {
     

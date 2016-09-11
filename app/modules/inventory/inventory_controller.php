@@ -1,4 +1,11 @@
 <?php
+
+namespace modules\inventory;
+
+use munkireport\Module_controller as Module_controller;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+
 class Inventory_controller extends Module_controller
 {
     // Require authentication

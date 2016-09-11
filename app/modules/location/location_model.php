@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\location;
+
+use munkireport\Model as Model;
+
 class Location_model extends Model
 {
 

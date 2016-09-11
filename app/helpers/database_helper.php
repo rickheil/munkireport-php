@@ -58,7 +58,8 @@ function create_table($model)
  **/
 function migrate($model_obj)
 {
-    $model_name = get_class($model_obj);
+    //$model_name = get_class($model_obj);
+    $model_name = join('', array_slice(explode('\\', get_class($model_obj)), -1));
     $migration_dir = conf('application_path').'migrations/'.strtolower($model_name);
     $target_version = $model_obj->get_version();
     $current_version = $model_obj->get_schema_version();

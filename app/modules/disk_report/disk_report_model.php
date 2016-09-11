@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\disk_report;
+
+use munkireport\Model as Model;
+
 class Disk_report_model extends Model
 {
 

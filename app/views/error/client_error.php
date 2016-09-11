@@ -42,6 +42,12 @@
 
 
 			</p>
+            
+            <?php if(isset($msg)):?>
+            <p>
+                <?=$msg?>
+            </p>
+            <?php endif?>
 
 		
 

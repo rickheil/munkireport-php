@@ -1,4 +1,9 @@
 <?php
+
+namespace modules\bluetooth;
+
+use munkireport\Model as Model;
+
 class Bluetooth_model extends Model
 {
 

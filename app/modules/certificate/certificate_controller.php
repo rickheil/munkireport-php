@@ -1,5 +1,11 @@
 <?php
 
+namespace modules\certificate;
+
+use munkireport\Module_controller as Module_controller;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+
 /**
  * Certificate_controller class
  *
