@@ -3,6 +3,10 @@
 namespace modules\servermetrics;
 
 use munkireport\Model as Model;
+use \DateTime as DateTime;
+use \DateInterval as DateInterval;
+use \Exception as Exception;
+use \PDO as PDO;
 
 class Servermetrics_model extends Model
 {
