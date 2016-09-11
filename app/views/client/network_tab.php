@@ -1,5 +1,5 @@
 <?php
-$nw = new Network_model();?>
+$nw = new modules\network\Network_model();?>
 
 <?php foreach($nw->retrieveMany(
 		'serial_number=? ORDER BY `order`', array($serial_number)) as $item): ?>

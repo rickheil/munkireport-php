@@ -1,5 +1,5 @@
 <?php //Initialize models needed for the table
-$power = new power_model($serial_number);
+$power = new modules\power\Power_model($serial_number);
 ?>
 	<h2>Power</h2>
 

@@ -1,7 +1,7 @@
 <?php //Initialize models needed for the table
-$filevault_escrow = new filevault_escrow_model($serial_number);
-$filevault_status = new filevault_status_model($serial_number);
-$report   = new Reportdata_model($serial_number);
+$filevault_escrow = new modules\filevault_escrow\Filevault_escrow_model($serial_number);
+$filevault_status = new modules\filevault_status\Filevault_status_model($serial_number);
+$report   = new modules\reportdata\Reportdata_model($serial_number);
 ?>
 
 

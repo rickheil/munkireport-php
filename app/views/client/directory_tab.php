@@ -1,5 +1,5 @@
 <?php
-	$directoryservice = new Directory_service_model($serial_number)
+	$directoryservice = new modules\directory_service\Directory_service_model($serial_number)
 ?>
 
 	<h2>Directory Service

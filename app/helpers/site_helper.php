@@ -1,6 +1,7 @@
 <?php
 
 use munkireport\View as View;
+use modules\reportdata\Reportdata_model as Reportdata_model;
 
 // Munkireport version (last number is number of commits)
 $GLOBALS['version'] = '2.10.0.2143';

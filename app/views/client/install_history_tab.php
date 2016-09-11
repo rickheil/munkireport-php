@@ -1,4 +1,4 @@
-<?php $hist_obj = new Installhistory_model();
+<?php $hist_obj = new modules\installhistory\Installhistory_model();
 
 $installHistory = $hist_obj->itemsBySerialNumber($serial_number); ?>
 <?php if(isset($installHistory) && count($installHistory) > 1): ?>

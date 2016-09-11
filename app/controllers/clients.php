@@ -1,4 +1,12 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use modules\machine\Machine_model as Machine_model;
+use modules\reportdata\Reportdata_model as Reportdata_model;
+use munkireport\View as View;
+
 class clients extends Controller
 {
     public function __construct()

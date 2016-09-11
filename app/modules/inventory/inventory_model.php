@@ -3,6 +3,7 @@
 namespace modules\inventory;
 
 use munkireport\Model as Model;
+use \PDO as PDO;
 
 class Inventory_model extends Model
 {

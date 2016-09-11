@@ -1,5 +1,5 @@
 <?php
-	$display = new Displays_info_model();
+	$display = new modules\displays_info\Displays_info_model();
 	$sql = "SELECT *
 					FROM displays
 					WHERE serial_number = '$serial_number'
