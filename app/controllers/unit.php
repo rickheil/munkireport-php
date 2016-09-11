@@ -1,4 +1,12 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use munkireport\View as View;
+use models\Business_unit as Business_unit;
+use models\Machine_group as Machine_group;
+
 class unit extends Controller
 {
     public function __construct()

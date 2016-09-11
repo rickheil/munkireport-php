@@ -1,4 +1,11 @@
 <?php
+
+namespace controllers;
+
+use munkireport\Controller as Controller;
+use munkireport\View as View;
+use lib\munkireport\Database as Database;
+
 class system extends Controller
 {
     public function __construct()
@@ -35,8 +42,7 @@ class system extends Controller
             'pdo_opts' => conf('pdo_opts'),
         );
         
-        include_once(APP_PATH . '/lib/munkireport/Database.php');
-        $db = new munkireport\Database($config);
+        $db = new Database($config);
         //echo '<pre>'; var_dump($db);
         if ($db->connect()) {
             $out['db.connectable'] = true;

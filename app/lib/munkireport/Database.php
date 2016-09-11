@@ -1,6 +1,9 @@
 <?php
 
-namespace munkireport;
+namespace lib\munkireport;
+
+use \PDO as PDO;
+use \PDOException as PDOException;
 
 class Database
 {
@@ -22,13 +25,13 @@ class Database
     public function connect()
     {
         try {
-            $this->dbh = new \PDO(
+            $this->dbh = new PDO(
                 $this->config['pdo_dsn'],
                 $this->config['pdo_user'],
                 $this->config['pdo_pass'],
                 $this->config['pdo_opts']
             );
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $this->error = $e->getMessage();
             return false;
         }
@@ -49,7 +52,7 @@ class Database
                 return false;
             }
         }
-        $this->dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $this->dbh;
     }
     
@@ -71,7 +74,7 @@ class Database
             $dbh->exec("CREATE TABLE mr_temp (id TEXT)");
             $dbh->exec("DROP TABLE mr_temp");
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $this->error = $e->getMessage();
             return false;
         }
@@ -96,6 +99,6 @@ class Database
      **/
     public function get_driver()
     {
-        return $this->getDBH()->getAttribute(\PDO::ATTR_DRIVER_NAME);
+        return $this->getDBH()->getAttribute(PDO::ATTR_DRIVER_NAME);
     }
 }
