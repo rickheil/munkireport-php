@@ -33,7 +33,7 @@ class Installhistory_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author abn290
      **/
     public function process($plist)
@@ -43,7 +43,7 @@ class Installhistory_model extends Model
 
         // Check if we're passed a plist (10.6 and higher)
         if (strpos($plist, '<?xml version="1.0" encoding="UTF-8"?>') === 0) {
-        // Strip invalid xml chars
+            // Strip invalid xml chars
             $plist = preg_replace('/[^\x{0009}\x{000A}\x{000D}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u', '�', $plist);
             
             $parser = new CFPropertyList();
@@ -51,7 +51,7 @@ class Installhistory_model extends Model
             $mylist = $parser->toArray();
 
             foreach ($mylist as $item) {
-            // PackageIdentifiers is an array, so we only retain one
+                // PackageIdentifiers is an array, so we only retain one
                 // packageidentifier so we can differentiate between
                 // Apple and third party tools
                 if (array_key_exists('packageIdentifiers', $item)) {

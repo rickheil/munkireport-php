@@ -33,7 +33,6 @@ class Service_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {

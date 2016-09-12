@@ -35,7 +35,6 @@ class Bluetooth_model extends Model
      * Get devices with low battery
      *
      * Select devices with battery level below 15%
-     *
      **/
     public function get_low()
     {
@@ -60,7 +59,7 @@ class Bluetooth_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author clburlison
      **/
     public function process($plist)

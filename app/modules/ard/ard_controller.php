@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Ard_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Ard_controller extends Module_controller
 {
@@ -30,7 +30,6 @@ class Ard_controller extends Module_controller
 
     /**
      * Retrieve data in json format
-     *
      **/
     public function get_data($serial_number = '')
     {

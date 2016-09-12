@@ -11,7 +11,7 @@ use munkireport\Controller as Controller;
  * engine class in kissmvc_core
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Module extends Controller
 {
@@ -49,7 +49,7 @@ class Module extends Controller
         }
         
         //Create module obj
-        require($module_file);
+        include $module_file;
         $this->module_classname = $this->module.'_controller';
         $class_to_instantiate = "modules\\$this->module\\$this->module_classname";
 

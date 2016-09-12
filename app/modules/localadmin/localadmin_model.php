@@ -33,7 +33,7 @@ class Localadmin_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author AvB
      **/
     public function process($data)

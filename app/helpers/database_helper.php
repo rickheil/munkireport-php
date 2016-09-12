@@ -11,7 +11,7 @@ function create_table($model)
     // Get columns
     $columns = array();
     foreach ($model->rs as $name => $val) {
-    // Determine type automagically
+        // Determine type automagically
         $type = $model->get_type($val);
         
         // Or set type from type array
@@ -102,8 +102,9 @@ function migrate($model_obj)
             throw new Exception('migration class '.$class.' not found');
         }
 
-        if (($method === 'up'   && $number > $current_version && $number <= $target_version) or
-            ($method === 'down' && $number <= $current_version && $number > $target_version)) {
+        if (($method === 'up'   && $number > $current_version && $number <= $target_version)
+            or ($method === 'down' && $number <= $current_version && $number > $target_version)
+        ) {
             $instance = new $class();
 
             // Check if we have up and down

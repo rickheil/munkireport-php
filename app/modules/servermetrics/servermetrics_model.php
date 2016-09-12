@@ -101,7 +101,6 @@ class Servermetrics_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -111,7 +110,7 @@ class Servermetrics_model extends Model
 
         try {
             foreach (json_decode($data) as $date => $values) {
-            // Only store if there's at least one value > 0
+                // Only store if there's at least one value > 0
                 if (array_sum($values)) {
                     $this->id = 0;
                     $this->datetime = $date;

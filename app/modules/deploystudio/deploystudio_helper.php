@@ -52,7 +52,7 @@ class Deploystudio_helper
             $deploystudio_model->{'dstudio_last_workflow'} = $workflow_title;
         }
 
-      // Save the data
+        // Save the data
         $deploystudio_model->save();
         $error = 'DeployStudio data processed';
         return $error;

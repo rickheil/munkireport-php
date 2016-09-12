@@ -108,7 +108,7 @@ class Migration_munkireport_new extends Model
                 $report = unserialize($this->COMPRESS_ARRAY ? gzinflate($arr->report_plist) : $arr->report_plist);
 
                 // Load legacy support TODO: use autoloader
-                include_once(APP_PATH . '/lib/munkireport/Legacy_munkireport.php');
+                include_once APP_PATH . '/lib/munkireport/Legacy_munkireport.php';
                 $legacyObj = new munkireport\Legacy_munkireport;
                 $install_list = $legacyObj->parse($report)->getList();
 
@@ -144,7 +144,7 @@ class Migration_munkireport_new extends Model
             }
 
             if ($this->get_driver() == 'sqlite') {
-              // Commit transaction
+                // Commit transaction
                 $dbh->commit();
             }
 
@@ -155,7 +155,7 @@ class Migration_munkireport_new extends Model
         // ***** Modify columns
 
         if ($this->get_driver() == 'mysql') {
-        // Drop columns
+            // Drop columns
             $sql = sprintf('ALTER TABLE munkireport DROP %s', implode(', DROP ', $this->dropCols));
             $this->exec($sql);
         } else {
@@ -201,7 +201,6 @@ class Migration_munkireport_new extends Model
      * Migrate down
      *
      * Migrates this table to the previous version
-     *
      **/
     public function down()
     {

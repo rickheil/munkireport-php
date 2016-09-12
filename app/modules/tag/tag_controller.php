@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Tag_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Tag_controller extends Module_controller
 {
@@ -45,7 +45,6 @@ class Tag_controller extends Module_controller
 
     /**
      * Create a Tag
-     *
      **/
     public function save()
     {
@@ -80,7 +79,6 @@ class Tag_controller extends Module_controller
 
     /**
      * Retrieve data in json format
-     *
      **/
     public function retrieve($serial_number = '')
     {
@@ -97,7 +95,6 @@ class Tag_controller extends Module_controller
 
     /**
      * Delete Tag
-     *
      **/
     public function delete($serial_number = '', $id = -1)
     {
@@ -121,7 +118,6 @@ class Tag_controller extends Module_controller
      * Get all defined tags
      *
      * Returns a JSON array with all defined tags, used for typeahead
-     *
      **/
     public function all_tags($add_count = false)
     {

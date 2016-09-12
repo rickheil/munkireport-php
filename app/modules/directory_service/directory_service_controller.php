@@ -34,8 +34,6 @@ class Directory_service_controller extends Module_controller
     
     /**
      * Get bound Statistics
-     *
-     *
      **/
     public function get_bound_stats()
     {
@@ -52,8 +50,6 @@ class Directory_service_controller extends Module_controller
 
     /**
      * Get Modified Computer names
-     *
-     *
      **/
     public function get_modified_computernames()
     {

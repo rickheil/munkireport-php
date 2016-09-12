@@ -9,7 +9,7 @@ use munkireport\View as View;
  * wifi_controller class
  *
  * @package wifi
- * @author John Eberle
+ * @author  John Eberle
  **/
 class wifi_controller extends Module_controller
 {
@@ -30,7 +30,6 @@ class wifi_controller extends Module_controller
 
     /**
      * Retrieve data in json format
-     *
      **/
     public function get_data($serial_number = '')
     {

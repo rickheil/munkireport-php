@@ -73,7 +73,7 @@ class Migration_convert_physical_memory extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }// End function up()
@@ -147,7 +147,7 @@ class Migration_convert_physical_memory extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }

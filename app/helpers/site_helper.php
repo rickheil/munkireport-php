@@ -24,10 +24,10 @@ function uncaught_exception_handler($e)
         ob_end_clean();
     }
 
-  // Get error message
+    // Get error message
     error('Uncaught Exception: '.$e->getMessage());
 
-  // Write footer
+    // Write footer
     die(View::doFetch(conf('view_path').'partials/foot.php'));
 }
 
@@ -117,7 +117,7 @@ function getdbh()
 // }
 
 // Include autoloader
-require_once(APP_PATH . 'bootstrap/autoload.php');
+require_once APP_PATH . 'bootstrap/autoload.php';
 
 function url($url = '', $fullurl = false)
 {
@@ -144,7 +144,7 @@ function getRemoteAddress()
 /**
  * Return a secure url
  *
- * @param string url
+ * @param  string url
  * @return string secure url
  * @author
  **/
@@ -293,8 +293,8 @@ function id_in_machine_group($id)
 /**
  * Get filter for machine_group membership
  *
- * @var string optional prefix default 'WHERE'
- * @var string how to address the reportdata table - default 'reportdata'
+ * @var    string optional prefix default 'WHERE'
+ * @var    string how to address the reportdata table - default 'reportdata'
  * @return string filter clause
  * @author
  **/
@@ -341,8 +341,8 @@ function get_filtered_groups()
  *
  * @param string $serial serial number
  * @param string $module reporting module
- * @param string $type info, error
- * @param string $msg long message
+ * @param string $type   info, error
+ * @param string $msg    long message
  **/
 function store_event($serial, $module = '', $type = '', $msg = 'no_message', $data = '')
 {
@@ -367,12 +367,12 @@ function delete_event($serial, $module = '')
 // Please acknowledge use of this code by including this header.
 function truncate_string($string, $limit = 100, $break = ".", $pad = "...")
 {
-  // return with no change if string is shorter than $limit
+    // return with no change if string is shorter than $limit
     if (strlen($string) <= $limit) {
         return $string;
     }
 
-  // is $break present between $limit and the end of the string?
+    // is $break present between $limit and the end of the string?
     if (false !== ($breakpoint = strpos($string, $break, $limit))) {
         if ($breakpoint < strlen($string) - 1) {
             $string = substr($string, 0, $breakpoint) . $pad;

@@ -43,7 +43,6 @@ class Disk_report_model extends Model
      * Get filevault statistics
      *
      * Get statistics about filevault
-     *
      **/
     public function get_filevault_stats($mountpoint = '/')
     {
@@ -80,8 +79,6 @@ class Disk_report_model extends Model
     
     /**
      * Get SMART Status statistics
-     *
-     *
      **/
     public function getSmartStats()
     {
@@ -99,7 +96,7 @@ class Disk_report_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author abn290
      **/
     public function process($plist)
@@ -123,13 +120,15 @@ class Disk_report_model extends Model
         $empty = $this->rs;
 
         foreach ($mylist as $disk) {
-        // Reset values
+            // Reset values
             $this->rs = $empty;
 
             // Calculate percentage
             if (isset($disk['TotalSize']) && isset($disk['FreeSpace'])) {
-                $disk['Percentage'] = round(($disk['TotalSize'] - $disk['FreeSpace']) /
-                    max($disk['TotalSize'], 1) * 100);
+                $disk['Percentage'] = round(
+                    ($disk['TotalSize'] - $disk['FreeSpace']) /
+                    max($disk['TotalSize'], 1) * 100
+                );
             }
 
             // Determine VolumeType

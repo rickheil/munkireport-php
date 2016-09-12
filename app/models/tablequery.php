@@ -26,7 +26,7 @@ class Tablequery
     /**
      * Retrieve all entries for serial
      *
-     * @param string serial
+     * @param  string serial
      * @return array
      * @author abn290
      **/
@@ -57,7 +57,7 @@ class Tablequery
         foreach ($cfg['columns'] as $pos => $column) {
             $tbl_col_array = explode('.', $column['name']);
             if (count($tbl_col_array) == 2) {
-            // Store table name
+                // Store table name
                 $tables[$tbl_col_array[0]] = 1;
                 // Format column name
                 $formatted_columns[$pos] = sprintf(
@@ -119,7 +119,7 @@ class Tablequery
 
         // Business unit filter (assumes we are selecting the reportdata table)
         if ($machine_groups = get_filtered_groups()) {
-        // Todo: We should check if a requested machine_group is allowed
+            // Todo: We should check if a requested machine_group is allowed
 
             $bu_where = 'reportdata.machine_group IN ('. implode(', ', $machine_groups). ')';
             if ($where) {

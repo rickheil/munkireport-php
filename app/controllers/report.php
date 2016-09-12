@@ -8,7 +8,7 @@ use modules\event\Event_model as Event_model;
 use models\Hash as Hash;
 use lib\munkireport\Unserializer as Unserializer;
 
-class report extends Controller
+class Report extends Controller
 {
     
     public $group = 0;
@@ -78,7 +78,7 @@ class report extends Controller
             $report->register()->save();
             
             //$req_items = unserialize($_POST['items']); //Todo: check if array
-            include_once(APP_PATH . '/lib/munkireport/Unserializer.php');
+            include_once APP_PATH . '/lib/munkireport/Unserializer.php';
             $unserializer = new Unserializer($_POST['items']);
             $req_items = $unserializer->unserialize();
 
@@ -95,7 +95,7 @@ class report extends Controller
 
             // Compare sent hashes with stored hashes
             foreach ($req_items as $name => $val) {
-            // All models are lowercase
+                // All models are lowercase
                 $lkey = strtolower($name);
 
                 // Rename legacy InventoryItem to inventory
@@ -148,7 +148,7 @@ class report extends Controller
         }
         
         foreach ($arr as $name => $val) {
-        // Skip items without data
+            // Skip items without data
             if (! isset($val['data'])) {
                 continue;
             }
@@ -269,7 +269,7 @@ class report extends Controller
      * Echo serialized array with error
      * and exit
      *
-     * @param string message
+     * @param  string message
      * @author AvB
      **/
     public function error($msg)

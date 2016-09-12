@@ -50,7 +50,6 @@ class wifi_model extends Model
     
     /**
      * Get WiFi state for widget
-     *
      **/
     public function get_wifi_state()
     {
@@ -67,7 +66,6 @@ class wifi_model extends Model
     
     /**
      * Get WiFi names for widget
-     *
      **/
     public function get_wifi_name()
     {

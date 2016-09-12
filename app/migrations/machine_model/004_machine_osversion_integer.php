@@ -2,7 +2,6 @@
 
 /**
  * Convert osversion column to integer
- *
  **/
 class Migration_machine_osversion_integer extends Model
 {
@@ -118,7 +117,7 @@ class Migration_machine_osversion_integer extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }// End function up()

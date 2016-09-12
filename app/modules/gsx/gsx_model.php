@@ -51,7 +51,6 @@ class gsx_model extends Model
     
     /**
      * Get GSX statistics
-     *
      **/
     public function get_stats($alert = false)
     {
@@ -82,7 +81,6 @@ class gsx_model extends Model
 
     /**
      * Get GSX supported statistics for widget
-     *
      **/
     public function getGSXSupportStats()
     {
@@ -112,7 +110,7 @@ class gsx_model extends Model
         // Useful for stopping lookups if IP address changes
         if (conf('gsx_enable')) {
             // Load gsx helper
-                require_once(conf('application_path').'helpers/gsx_helper.php');
+                include_once conf('application_path').'helpers/gsx_helper.php';
             
                 get_gsx_stats($this);
                 // ^^ Comment and uncomment to turn off and on

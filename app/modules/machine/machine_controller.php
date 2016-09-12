@@ -39,8 +39,6 @@ class Machine_controller extends Module_controller
     
     /**
      * Get duplicate computernames
-     *
-     *
      **/
     public function get_duplicate_computernames()
     {
@@ -51,7 +49,6 @@ class Machine_controller extends Module_controller
     
     /**
      * Get model statistics
-     *
      **/
     public function get_model_stats()
     {
@@ -107,7 +104,7 @@ class Machine_controller extends Module_controller
     /**
      * Return json array with memory configuration breakdown
      *
-     * @param string $format Format output. Possible values: flotr, none
+     * @param  string $format Format output. Possible values: flotr, none
      * @author AvB
      **/
     public function get_memory_stats($format = 'none')
@@ -118,7 +115,7 @@ class Machine_controller extends Module_controller
         $tmp = array();
         $machine = new Machine_model();
         foreach ($machine->get_memory_stats() as $obj) {
-        // Take care of mixed entries (string or int)
+            // Take care of mixed entries (string or int)
             if (isset($tmp[$obj->physical_memory])) {
                 $tmp[$obj->physical_memory] += $obj->count;
             } else {

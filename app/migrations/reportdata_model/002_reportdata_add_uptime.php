@@ -74,7 +74,7 @@ class Migration_reportdata_add_uptime extends Model
                     $this->enquote($this->tablename),
                     $this->enquote($this->columname)
                 );
-                $this->exec($sql);
+                    $this->exec($sql);
         }
     }
 }

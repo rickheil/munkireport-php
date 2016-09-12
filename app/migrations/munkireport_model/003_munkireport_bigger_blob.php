@@ -14,7 +14,6 @@ class Migration_munkireport_bigger_blob extends Model
      * Migrate down
      *
      * Migrates this table to the previous version
-     *
      **/
     public function down()
     {

@@ -47,9 +47,7 @@ class managedinstalls_model extends Model
     /**
      * Get statistics
      *
-     *
-     *
-     * @param integer $hours hours
+     * @param  integer $hours hours
      * @return {11:return type}
      */
     public function get_stats($hours = 24)
@@ -76,7 +74,6 @@ class managedinstalls_model extends Model
     
     /**
      * Get pending installs
-     *
      *
      * @param int $hours Amount of hours to look back in history
      **/
@@ -105,7 +102,7 @@ class managedinstalls_model extends Model
      *
      * Get statistics about a packat
      *
-     * @param string name Package name or nothing for all packages
+     * @param  string name Package name or nothing for all packages
      * @return {11:return type}
      */
     public function get_pkg_stats($pkg = '')
@@ -143,7 +140,6 @@ class managedinstalls_model extends Model
     /**
      * Get machines with pending installs
      *
-     *
      * @param int $hours Amount of hours to look back in history
      **/
     public function get_clients($status, $hours = 24)
@@ -172,7 +168,6 @@ class managedinstalls_model extends Model
      * Process data sent by postflight
      *
      * @param string data property list
-     *
      **/
     public function process($data)
     {
@@ -213,7 +208,7 @@ class managedinstalls_model extends Model
         
         $new_installs = array();
         
-        # Loop through list
+        // Loop through list
         foreach ($mylist as $name => $props) {
             // Get an instance of the fillable array
             $temp = $fillable;

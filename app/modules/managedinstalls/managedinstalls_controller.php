@@ -52,7 +52,6 @@ class managedinstalls_controller extends Module_controller
     /**
      * Get pending installs
      *
-     *
      * @param string $type Type, munki or apple
      **/
     public function get_pending_installs($type = "munki")
@@ -81,7 +80,7 @@ class managedinstalls_controller extends Module_controller
      *
      * Get statistics about a packat
      *
-     * @param string name Package name
+     * @param  string name Package name
      * @return {11:return type}
      */
     public function get_pkg_stats($pkg = '')
@@ -124,7 +123,7 @@ class managedinstalls_controller extends Module_controller
      *
      * Undocumented function long description
      *
-     * @param int $hours number of hours back or 0 for all
+     * @param  int $hours number of hours back or 0 for all
      * @return {11:return type}
      */
     public function get_stats($hours = 0)
@@ -148,7 +147,7 @@ class managedinstalls_controller extends Module_controller
      *
      * Undocumented function long description
      *
-     * @param type var Description
+     * @param  type var Description
      * @return {11:return type}
      */
     public function listing($name = '', $version = '')
@@ -167,6 +166,7 @@ class managedinstalls_controller extends Module_controller
     /**
      * View a file
      * TODO: move to parent?
+     *
      * @param string $page filename
      */
     public function view($page)
@@ -182,6 +182,7 @@ class managedinstalls_controller extends Module_controller
     /**
      * Get machines with $status installs
      *   *
+     *
      * @param integer $hours Number of hours to get stats from
      **/
     public function get_clients($status = 'pending_install', $hours = 24)

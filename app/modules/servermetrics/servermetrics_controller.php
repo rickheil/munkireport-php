@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Servermetrics list module class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Servermetrics_controller extends Module_controller
 {

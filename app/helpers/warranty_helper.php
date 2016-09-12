@@ -6,7 +6,7 @@ use modules\reportdata\Reportdata_model;
 /**
  * Unfortunately we have to scrape the page as Apple discontinued the json api
  *
- * @param object warranty model instance
+ * @param  object warranty model instance
  * @author AvB
  **/
 function check_warranty_status(&$warranty_model)
@@ -73,8 +73,8 @@ function check_warranty_status(&$warranty_model)
  **/
 function estimate_manufactured_date($serial)
 {
-    # See http://www.macrumors.com/2010/04/16/apple-tweaks-serial-number
-    #      -format-with-new-macbook-pro/ for details about serial numbers
+    // See http://www.macrumors.com/2010/04/16/apple-tweaks-serial-number
+    // -format-with-new-macbook-pro/ for details about serial numbers
 
     if (strlen($serial) == 11) {
         $year = $serial[2];
@@ -187,7 +187,7 @@ function add_proxy_server(&$context_options)
 
     // Authenticated proxy
     if (isset($proxy['username']) && isset($proxy['password'])) {
-    // Encode username and password
+        // Encode username and password
         $auth = base64_encode($proxy['username'].':'.$proxy['password']);
 
         if (! isset($context_options['http']['header'])) {

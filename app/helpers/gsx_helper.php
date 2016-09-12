@@ -17,7 +17,7 @@ function get_gsx_stats(&$gsx_model)
 
     // Import gsxlib - https://github.com/filipp/gsxlib
     // Set up variables
-    include_once(conf('application_path').'lib/gsxlib/gsxlib.php');
+    include_once conf('application_path').'lib/gsxlib/gsxlib.php';
     $_ENV['GSX_CERT'] = conf('gsx_cert');
     $_ENV['GSX_KEYPASS'] = conf('gsx_cert_keypass');
     $sold_to = conf('gsx_sold_to');
@@ -40,8 +40,8 @@ function get_gsx_stats(&$gsx_model)
     catch (Exception $e) {
         // If obsolete, process and run stock warranty lookup
         if ($e->getMessage() === "The serial number entered has been marked as obsolete. If you feel this is in error, please verify and re-enter the serial number.") {
-        // Load warranty_helper and run stock warranty functions
-            require_once(conf('application_path').'helpers/warranty_helper.php');
+            // Load warranty_helper and run stock warranty functions
+            include_once conf('application_path').'helpers/warranty_helper.php';
             $gsx_model->productdescription = model_description_lookup($gsx_model->serial_number);
             $gsx_model->warrantystatus = 'Obsolete';
             $gsx_model->warrantymod = 'Expired';
@@ -53,8 +53,8 @@ function get_gsx_stats(&$gsx_model)
             $gsx_model->isvintage = 'No';
             
             
-        // Don't overwrite actual GSX data with guessed data
-        // For recently obsoleted machines
+            // Don't overwrite actual GSX data with guessed data
+            // For recently obsoleted machines
             if (is_null($gsx_model->estimatedpurchasedate) || ($gsx_model->estimatedpurchasedate === "")) {
                 $gsx_model->estimatedpurchasedate = estimate_manufactured_date($gsx_model->serial_number);
             }
@@ -68,23 +68,23 @@ function get_gsx_stats(&$gsx_model)
                 $gsx_model->coverageenddate = date('Y-m-d', strtotime('+1 year', strtotime($gsx_model->estimatedpurchasedate)));
             }
 
-        // Update the stock warranty tables
+            // Update the stock warranty tables
             $warranty = new Warranty_model($gsx_model->serial_number);
             $warranty->purchase_date = $gsx_model->estimatedpurchasedate;
             $warranty->end_date = $gsx_model->coverageenddate;
             $warranty->status = 'Expired';
             $warranty->save();
 
-        // Update the stock machine tables
+            // Update the stock machine tables
             $machine = new Machine_model($gsx_model->serial_number);
-    //$machine->img_url = $matches[1]; Todo: get image url for VM
+            //$machine->img_url = $matches[1]; Todo: get image url for VM
             $machine->machine_desc = $gsx_model->productdescription;
             $machine->save();
 
             $gsx_model->save();
             $error = 'GSX Lookup failed - machine is Obsolete - running stock warranty lookup';
        
-        //check_status();
+            //check_status();
             return $error;
         } // If error is not obsolete, return error
         else {
@@ -94,8 +94,8 @@ function get_gsx_stats(&$gsx_model)
     
     // Catch GSX lookup fails
     if ($result === false) {
-    // Load warranty_helper and run stock warranty functions
-        require_once(conf('application_path').'helpers/warranty_helper.php');
+        // Load warranty_helper and run stock warranty functions
+        include_once conf('application_path').'helpers/warranty_helper.php';
         $gsx_model->warrantystatus = 'GSX lookup failed';
         $gsx_model->productdescription = model_description_lookup($gsx_model->serial_number);
         $gsx_model->warrantymod = "Lookup failed";
@@ -156,7 +156,7 @@ function get_gsx_stats(&$gsx_model)
         
         // Update the stock machine tables
         $machine = new Machine_model($gsx_model->serial_number);
-    //$machine->img_url = $matches[1]; Todo: get image url for VM
+        //$machine->img_url = $matches[1]; Todo: get image url for VM
         $machine->machine_desc = str_replace(array('~VIN,'), array(''), $result->productDescription);
         $machine->save();
         

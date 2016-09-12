@@ -9,7 +9,7 @@ use munkireport\View as View;
  * FindMyMac manifest status module class
  *
  * @package munkireport
- * @author poundbangbash/clburlison
+ * @author  poundbangbash/clburlison
  **/
 class findmymac_controller extends Module_controller
 {
@@ -21,7 +21,7 @@ class findmymac_controller extends Module_controller
         $this->module_path = dirname(__FILE__);
     }
 
-  /**
+    /**
    * Get findmymac widget data
    *
    * @author clburlison
@@ -42,7 +42,7 @@ class findmymac_controller extends Module_controller
         $obj->view('json', array('msg' => current($queryobj->query($sql))));
     }
     
-  /**
+    /**
  * Get findmymac information for serial_number
  *
  * @param string $serial serial number

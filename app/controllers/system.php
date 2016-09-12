@@ -6,7 +6,7 @@ use munkireport\Controller as Controller;
 use munkireport\View as View;
 use lib\munkireport\Database as Database;
 
-class system extends Controller
+class System extends Controller
 {
     public function __construct()
     {
@@ -25,7 +25,6 @@ class system extends Controller
      * DataBase
      *
      * Get Database info and status
-     *
      */
     public function DataBaseInfo()
     {
@@ -73,11 +72,10 @@ class system extends Controller
      * Authentication and Authorization
      *
      * Get Authentication and Authorization data
-     *
      */
     public function AuthenticationAndAuthorization()
     {
-        # code...
+        // code...
     }
     //===============================================================
     
@@ -85,7 +83,6 @@ class system extends Controller
      * php information
      *
      * Retrieve information about php
-     *
      */
     public function phpInfo()
     {

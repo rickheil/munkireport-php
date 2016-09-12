@@ -15,7 +15,7 @@ class Migration_add_dsconfigad_data extends Model
             $dbh->query("SELECT adforest FROM directoryservice");
             return true;
         } catch (Exception $e) {
-        // Not migrated, continue..
+            // Not migrated, continue..
         }
 
         switch ($this->get_driver()) {
@@ -110,7 +110,7 @@ class Migration_add_dsconfigad_data extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }// End function up()
@@ -184,7 +184,7 @@ class Migration_add_dsconfigad_data extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }

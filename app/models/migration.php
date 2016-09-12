@@ -8,7 +8,7 @@ use munkireport\Model as Model;
  * Migration class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Migration extends Model
 {

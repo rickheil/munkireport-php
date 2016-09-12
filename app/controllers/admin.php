@@ -8,7 +8,7 @@ use models\Machine_group as Machine_group;
 use modules\reportdata\Reportdata_model as Reportdata_model;
 use munkireport\View as View;
 
-class admin extends Controller
+class Admin extends Controller
 {
     public function __construct()
     {
@@ -69,7 +69,7 @@ class admin extends Controller
             $out['groupid'] = intval($groupid);
 
             foreach ($_POST as $property => $val) {
-            // Skip groupid
+                // Skip groupid
                 if ($property == 'groupid') {
                     continue;
                 }
@@ -131,7 +131,7 @@ class admin extends Controller
         if ($groupid !== '') {
             $mg = new Machine_group;
             if ($out['success'] = $mg->deleteWhere('groupid=?', $groupid)) {
-            // Delete from business unit
+                // Delete from business unit
                 $bu = new Business_unit;
                 $out['success'] = $bu->deleteWhere("property='machine_group' AND value=?", $groupid);
             }
@@ -184,27 +184,31 @@ class admin extends Controller
                 // If sent a '#', no items are in the iteminfo array
                 // proceed with empty groups array
                 if (! in_array('#', $_POST['iteminfo'])) {
-                // Loop through iteminfo
+                    // Loop through iteminfo
                     foreach ($_POST['iteminfo'] as $entry) {
-                    // No key, create new
+                        // No key, create new
                         if ($entry['key'] === '') {
                             $mg = new Machine_group;
                             $newgroup = $mg->get_max_groupid() + 1;
 
                             // Store name
-                            $mg->merge(array(
+                            $mg->merge(
+                                array(
                                 'id' => '',
                                 'groupid' => $newgroup,
                                 'property' => 'name',
-                                'value' => $entry['name']));
+                                'value' => $entry['name'])
+                            );
                             $mg->save();
 
                             // Store GUID key
-                            $mg->merge(array(
+                            $mg->merge(
+                                array(
                                 'id' => '',
                                 'groupid' => $newgroup,
                                 'property' => 'key',
-                                'value' => get_guid()));
+                                'value' => get_guid())
+                            );
                             $mg->save();
 
                             $groups[] = $newgroup;
@@ -220,7 +224,7 @@ class admin extends Controller
                 unset($_POST['iteminfo']);
             }
             foreach ($_POST as $property => $val) {
-            // Skip unitid
+                // Skip unitid
                 if ($property == 'unitid') {
                     continue;
                 }
@@ -247,7 +251,7 @@ class admin extends Controller
                     $business_unit->deleteWhere('unitid=? AND property=?', array($unitid, $name));
 
                     foreach ($val as $entry) {
-                    // Empty array placeholder
+                        // Empty array placeholder
                         if ($entry === '#') {
                             $out[$property] = array();
                             continue;

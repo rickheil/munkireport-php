@@ -39,7 +39,7 @@ class Hash extends Model
     /**
      * Retrieve all entries for serial
      *
-     * @param string serial
+     * @param  string serial
      * @return array
      * @author abn290
      **/

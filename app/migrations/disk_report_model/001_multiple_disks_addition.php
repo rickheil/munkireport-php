@@ -39,7 +39,7 @@ class Migration_multiple_disks_addition extends Model
             $dbh->query("SELECT VolumeName FROM diskreport");
             return true;
         } catch (Exception $e) {
-        // Not migrated, continue..
+            // Not migrated, continue..
         }
 
         // Create temp table

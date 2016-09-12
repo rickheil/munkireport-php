@@ -7,7 +7,7 @@ use munkireport\View as View;
 use models\Business_unit as Business_unit;
 use models\Machine_group as Machine_group;
 
-class unit extends Controller
+class Unit extends Controller
 {
     public function __construct()
     {
@@ -49,7 +49,7 @@ class unit extends Controller
         $this->authorized();
 
         if (isset($_SESSION['business_unit'])) {
-        // Get data for this unit
+            // Get data for this unit
             $unit = new Business_unit;
             $out = $unit->all($_SESSION['business_unit']);
         }
@@ -68,7 +68,7 @@ class unit extends Controller
         $out = array();
 
         if (isset($_SESSION['machine_groups'])) {
-        // Get data for this unit
+            // Get data for this unit
             $mg = new Machine_group;
             foreach ($_SESSION['machine_groups'] as $group) {
                 if ($mg_data = $mg->all($group)) {
@@ -126,7 +126,7 @@ class unit extends Controller
 
 
         if (! isset($out['error'])) {
-        // Create filter if it does not exist
+            // Create filter if it does not exist
             if (! isset($_SESSION['filter'][$filter])) {
                 $_SESSION['filter'][$filter] = array();
             }

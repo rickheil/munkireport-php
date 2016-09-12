@@ -6,7 +6,7 @@ use munkireport\Controller as Controller;
 use munkireport\View as View;
 use modules\machine\Machine_model as Machine_model;
 
-class manager extends Controller
+class Manager extends Controller
 {
     public function __construct()
     {
@@ -75,7 +75,7 @@ class manager extends Controller
             try {
                 // Delete entries
                 foreach ($tables as $table) {
-                // Migration has no serial number
+                    // Migration has no serial number
                     if (in_array($table, $skip_tables)) {
                         continue;
                     }

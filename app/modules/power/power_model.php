@@ -37,8 +37,6 @@ class Power_model extends Model
     
     /**
      * Get Power statistics
-     *
-     *
      **/
     public function get_stats()
     {
@@ -56,7 +54,6 @@ class Power_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {

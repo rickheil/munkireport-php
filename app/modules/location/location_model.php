@@ -51,8 +51,6 @@ class Location_model extends Model
     
     /**
      * Retrieve locations and names to render on a google map
-     *
-     *
      **/
     public function get_map_data()
     {
@@ -79,7 +77,6 @@ class Location_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {

@@ -9,7 +9,7 @@ use munkireport\View as View;
  * GSX module class
  *
  * @package munkireport
- * @author John Eberle
+ * @author  John Eberle
  **/
 class gsx_controller extends Module_controller
 {

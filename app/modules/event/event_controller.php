@@ -10,7 +10,7 @@ use munkireport\View as View;
  * Event module class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Event_controller extends Module_controller
 {

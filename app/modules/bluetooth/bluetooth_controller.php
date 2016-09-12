@@ -9,7 +9,7 @@ use munkireport\View as View;
  * bluetooth status module class
  *
  * @package munkireport
- * @author clburlison
+ * @author  clburlison
  **/
 class Bluetooth_controller extends Module_controller
 {
@@ -23,7 +23,6 @@ class Bluetooth_controller extends Module_controller
 
     /**
      * Default method
-     *
      **/
     public function index()
     {
@@ -32,7 +31,6 @@ class Bluetooth_controller extends Module_controller
 
     /**
      * Retrieve data in json format
-     *
      **/
     public function get_data($serial = '')
     {
@@ -57,8 +55,6 @@ class Bluetooth_controller extends Module_controller
     
     /**
      * Get low battery devices
-     *
-     *
      **/
     public function get_low()
     {

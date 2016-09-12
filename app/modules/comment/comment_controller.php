@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Comment_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Comment_controller extends Module_controller
 {
@@ -36,7 +36,6 @@ class Comment_controller extends Module_controller
 
     /**
      * Create a comment
-     *
      **/
     public function save()
     {
@@ -75,7 +74,6 @@ class Comment_controller extends Module_controller
 
     /**
      * Retrieve data in json format
-     *
      **/
     public function retrieve($serial_number = '', $section = '')
     {
@@ -101,7 +99,6 @@ class Comment_controller extends Module_controller
 
     /**
      * Update comment
-     *
      **/
     public function update()
     {
@@ -109,7 +106,6 @@ class Comment_controller extends Module_controller
 
     /**
      * Delete comment
-     *
      **/
     public function delete()
     {

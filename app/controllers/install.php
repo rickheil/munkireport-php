@@ -5,7 +5,7 @@ namespace controllers;
 use munkireport\Controller as Controller;
 use munkireport\View as View;
 
-class install extends Controller
+class Install extends Controller
 {
     public function __construct()
     {
@@ -24,7 +24,7 @@ class install extends Controller
     /**
      * Show all available modules
      *
-     * @param optional string format the output
+     * @param  optional string format the output
      * @author
      **/
     public function dump_modules($format = '')
@@ -58,7 +58,7 @@ class install extends Controller
 
         // Collect install scripts from modules
         foreach (scandir(conf('module_path')) as $module) {
-        // Skip everything that starts with a dot
+            // Skip everything that starts with a dot
             if (strpos($module, '.') === 0) {
                 continue;
             }
@@ -93,14 +93,14 @@ class install extends Controller
         
         // Collect install scripts from modules
         foreach (scandir(conf('module_path')) as $module) {
-        // Skip everything that starts with a dot
+            // Skip everything that starts with a dot
             if (strpos($module, '.') === 0) {
                 continue;
             }
 
             // Check if we need to uninstall this module
             if (! in_array($module, $use_modules)) {
-            // Check if there is an uninstall script
+                // Check if there is an uninstall script
                 if (is_file(conf('module_path').$module.'/scripts/uninstall.sh')) {
                     $data['uninstall_scripts'][$module] = conf('module_path').$module.'/scripts/uninstall.sh';
                 }

@@ -6,7 +6,7 @@ use munkireport\Controller as Controller;
 use models\Tablequery as Tablequery;
 use munkireport\View as View;
 
-class datatables extends Controller
+class Datatables extends Controller
 {
     public function __construct()
     {
@@ -54,17 +54,19 @@ class datatables extends Controller
             
             // Check for older php versions
             if (function_exists('json_last_error')) {
-            // If there is an encoding error, show it
+                // If there is an encoding error, show it
                 if (json_last_error() != JSON_ERROR_NONE) {
                     echo json_last_error_msg();
                     print_r($obj->fetch($cfg));
                 }
             }
         } catch (Exception $e) {
-            echo json_encode(array(
+            echo json_encode(
+                array(
                 'error' => $e->getMessage(),
                 'draw' => intval($cfg['draw'])
-            ));
+                )
+            );
         }
     }
 }

@@ -7,12 +7,12 @@ namespace lib\munkireport;
  *
  * Based on the python unserializer
  * Does not convert objects
- *
  */
 class Unserializer
 {
     
-    private $position, $str;
+    private $position;
+    private $str;
     
     public function __construct($s)
     {
@@ -22,7 +22,7 @@ class Unserializer
 
     public function await($symbol, $n = 1)
     {
-        #result = $this->take(len(symbol))
+        // result = $this->take(len(symbol))
         $result = substr($this->str, $this->position, $n);
         $this->position += $n;
         if ($result != $symbol) {

@@ -93,7 +93,7 @@ class Migration_reportdata_add_group extends Model
                     $this->enquote($this->tablename),
                     $this->enquote($this->columname)
                 );
-                $this->exec($sql);
+                    $this->exec($sql);
         }
     }
 }

@@ -38,7 +38,7 @@ class Filevault_status_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author gmarnin
      **/
     public function process($data)

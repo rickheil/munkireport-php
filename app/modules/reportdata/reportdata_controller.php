@@ -11,7 +11,7 @@ use munkireport\View as View;
  * Reportdata module class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Reportdata_controller extends Module_controller
 {
@@ -43,7 +43,6 @@ class Reportdata_controller extends Module_controller
     
     /**
      * Get check-in statistics
-     *
      **/
     public function get_lastseen_stats()
     {
@@ -54,7 +53,6 @@ class Reportdata_controller extends Module_controller
     
     /**
      * Get uptime statistics
-     *
      **/
     public function getUptimeStats()
     {
@@ -65,7 +63,6 @@ class Reportdata_controller extends Module_controller
 
     /**
      * REST API for retrieving registration dates
-     *
      **/
     public function new_clients()
     {
@@ -105,7 +102,7 @@ class Reportdata_controller extends Module_controller
         $out = array();
         
         foreach ($reportdata->query($sql) as $event) {
-        // Store date
+            // Store date
             $pos = array_search($event->date, $dates);
             if ($pos === false) {
                 array_push($dates, $event->date);

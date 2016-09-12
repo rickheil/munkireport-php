@@ -69,7 +69,7 @@ class Machine_group extends Model
     /**
      * Retrieve all entries for groupid
      *
-     * @param integer groupid
+     * @param  integer groupid
      * @return array
      * @author abn290
      **/

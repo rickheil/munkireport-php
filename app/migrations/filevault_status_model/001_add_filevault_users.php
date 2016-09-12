@@ -76,9 +76,9 @@ class Migration_add_filevault_users extends Model
                     'filevault_status'
                 );
 
-                $this->exec($sql);
+                    $this->exec($sql);
 
-                $dbh->commit();
+                    $dbh->commit();
 
                 break;
 
@@ -89,7 +89,7 @@ class Migration_add_filevault_users extends Model
                     $this->enquote($this->tablename),
                     $this->enquote($this->columname)
                 );
-                $this->exec($sql);
+                    $this->exec($sql);
         }
     }
 }

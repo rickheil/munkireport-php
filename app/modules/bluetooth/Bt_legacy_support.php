@@ -7,8 +7,6 @@ namespace modules\bluetooth;
  *
  * Converts data from clients with the old Bluetooth module
  * to the new format
- *
- *
  */
 class Bt_legacy_support
 {
@@ -44,7 +42,7 @@ class Bt_legacy_support
                     
                     // Legacy client module
                     if ($value == 'Disconnected') {
-                    // Don't report on disconnected devices
+                        // Don't report on disconnected devices
                         continue;
                     } elseif (preg_match('/(\d+)% battery life remaining/', $value, $matches)) {
                         $value = $matches[1];

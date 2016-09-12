@@ -36,7 +36,6 @@ class Printer_model extends Model
 
     /**
      * Get printer names for widget
-     *
      **/
     public function get_printers()
     {
@@ -63,7 +62,6 @@ class Printer_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -93,7 +91,7 @@ class Printer_model extends Model
                     
                     $this->$field = $value;
 
-                    # Check if this is the last field
+                    // Check if this is the last field
                     if ($field == 'printer_sharing') {
                         $this->id = '';
                         $this->save();
@@ -104,6 +102,6 @@ class Printer_model extends Model
         } //end foreach explode lines
         
         
-    //	throw new Exception("Error Processing Request", 1);
+        //	throw new Exception("Error Processing Request", 1);
     }
 }

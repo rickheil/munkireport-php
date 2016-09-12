@@ -8,7 +8,6 @@ class Migration_inventoryitem_rename_serialcolumn extends Model
      * Constructor
      *
      * Set up tablename and indexes
-     *
      **/
     public function __construct()
     {
@@ -19,7 +18,6 @@ class Migration_inventoryitem_rename_serialcolumn extends Model
      * Migrate up
      *
      * Migrates this table to the current version
-     *
      **/
     public function up()
     {
@@ -80,7 +78,6 @@ class Migration_inventoryitem_rename_serialcolumn extends Model
      * Migrate down
      *
      * Migrates this table to the previous version
-     *
      **/
     public function down()
     {

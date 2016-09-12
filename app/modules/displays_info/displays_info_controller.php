@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Displays module class
  *
  * @package munkireport
- * @author Noel B.A.
+ * @author  Noel B.A.
  **/
 class Displays_info_controller extends Module_controller
 {
@@ -33,7 +33,6 @@ class Displays_info_controller extends Module_controller
     
     /**
      * Get count of  displays
-     *
      *
      * @param int $type type 1 is external, type 0 is internal
      **/

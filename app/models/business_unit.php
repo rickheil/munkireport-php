@@ -39,7 +39,7 @@ class Business_unit extends Model
     /**
      * Retrieve all entries for unitid or all entries if unitid = empty
      *
-     * @param integer unitid
+     * @param  integer unitid
      * @return array
      * @author abn290
      **/
@@ -48,7 +48,7 @@ class Business_unit extends Model
         $out = array();
         $where = $unitid ? 'unitid=?' : '';
         foreach ($this->select('unitid, property, value', $where, $unitid, PDO::FETCH_OBJ) as $obj) {
-        // Initialize
+            // Initialize
             if (! isset($out[$obj->unitid])) {
                 $out[$obj->unitid] = array('users' => array(), 'managers' => array(), 'machine_groups' => array());
             }

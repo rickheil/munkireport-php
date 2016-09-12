@@ -62,7 +62,7 @@ class Reportdata_model extends Model
         return $this;
     }
 
-  /**
+    /**
    * Reset Machine Group attribute
    *
    * @param integer $groupid groupid to reset
@@ -108,7 +108,6 @@ class Reportdata_model extends Model
      * Get uptime for Clients
      *
      * Calculate uptime per timeslot
-     *
      **/
     public function getUptimeStats()
     {
@@ -125,8 +124,6 @@ class Reportdata_model extends Model
     
     /**
      * Get check-in statistics
-     *
-     *
      **/
     public function get_lastseen_stats()
     {

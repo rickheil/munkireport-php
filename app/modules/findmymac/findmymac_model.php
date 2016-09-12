@@ -36,7 +36,6 @@ class findmymac_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -55,7 +54,7 @@ class findmymac_model extends Model
         }
         // Parse data
         foreach (explode("\n", $data) as $line) {
-        // Translate standard entries
+            // Translate standard entries
             foreach ($translate as $search => $field) {
                 if (strpos($line, $search) === 0) {
                     $value = substr($line, strlen($search));

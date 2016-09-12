@@ -10,7 +10,7 @@ use munkireport\View as View;
  * Certificate_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Certificate_controller extends Module_controller
 {
@@ -50,7 +50,6 @@ class Certificate_controller extends Module_controller
 
     /**
      * Get stats
-     *
      **/
     public function get_stats()
     {

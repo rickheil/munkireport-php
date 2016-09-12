@@ -63,7 +63,7 @@ class Migration_network_model_fix_ipv4router extends Model
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
 

@@ -9,7 +9,6 @@ class Migration_directory_service_fix_indexes extends Model
      * Constructor
      *
      * Set up tablename and indexes
-     *
      **/
     public function __construct()
     {
@@ -25,7 +24,6 @@ class Migration_directory_service_fix_indexes extends Model
      * Migrate up
      *
      * Migrates this table to the current version
-     *
      **/
     public function up()
     {
@@ -43,10 +41,12 @@ class Migration_directory_service_fix_indexes extends Model
                 $sql = 'CREATE INDEX %s ON %s (%s)';
 
                 // Look up existing indexes
-                $indexes = $this->query("SELECT index_name 
+                $indexes = $this->query(
+                    "SELECT index_name 
 						FROM INFORMATION_SCHEMA.STATISTICS
 						WHERE table_schema = DATABASE() 
-						AND table_name = '".$this->get_table_name()."'");
+						AND table_name = '".$this->get_table_name()."'"
+                );
 
                 foreach ($indexes as $obj) {
                     foreach ($this->idx as $k => $idx_data) {
@@ -71,7 +71,6 @@ class Migration_directory_service_fix_indexes extends Model
      * Migrate down
      *
      * Migrates this table to the previous version
-     *
      **/
     public function down()
     {

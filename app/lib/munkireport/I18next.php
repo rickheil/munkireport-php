@@ -31,6 +31,7 @@ class I18next
     /**
      * Translate
      *     *
+     *
      * @param type var Description
      **/
     public function translate($text = '', $params = '')

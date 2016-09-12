@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Warranty module class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Warranty_controller extends Module_controller
 {
@@ -60,7 +60,7 @@ class Warranty_controller extends Module_controller
             die('Authenticate first.'); // Todo: return json?
         }
 
-        require_once(conf('application_path') . "helpers/warranty_helper.php");
+        include_once conf('application_path') . "helpers/warranty_helper.php";
         $out = array('date' => estimate_manufactured_date($serial_number));
         $obj = new View();
         $obj->view('json', array('msg' => $out));

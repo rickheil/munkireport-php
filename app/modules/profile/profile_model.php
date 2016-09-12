@@ -40,11 +40,10 @@ class Profile_model extends Model
      * Format profile data to make it prettier
      *
      * @param json string json_string
-     *
      **/
     public function json_to_html($json_string)
     {
-        # Try to make it prettier
+        // Try to make it prettier
         $json_string = str_replace('\n', '<br />', $json_string);
         $json_string = str_replace(array('\\"', '"{', '}"','\''), '', $json_string);
         $json_string = str_replace('null', 'No payload', $json_string);
@@ -56,7 +55,6 @@ class Profile_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -77,10 +75,10 @@ class Profile_model extends Model
             'PayloadDisplayName = ' => 'payload_display',
             'PayloadData = ' => 'payload_data');
         foreach (explode("\n", $data) as $line) {
-           // Translate standard entries
+            // Translate standard entries
             foreach ($translate as $search => $field) {
-              //the separator is what triggers the save for each display
-              //making sure we have a valid s/n.
+                //the separator is what triggers the save for each display
+                //making sure we have a valid s/n.
                 if ((strpos($line, '---------') === 0) && ($this->profile_uuid)) {
                     $this->id = 0;
                     $this->save(); //the actual save
@@ -93,7 +91,7 @@ class Profile_model extends Model
                 }
             } //end foreach translate
 
-         //timestamp added by the server
+            //timestamp added by the server
             $this->timestamp = time();
         } //end foreach explode lines
     }

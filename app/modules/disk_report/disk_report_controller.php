@@ -10,7 +10,7 @@ use munkireport\View as View;
  * Disk report controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Disk_report_controller extends Module_controller
 {

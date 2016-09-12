@@ -97,17 +97,17 @@ class Migration_stale_location_columns extends Model
                     $this->enquote($this->tablename),
                     $this->enquote($this->columname1)
                 );
-                $this->exec($sql);
+                    $this->exec($sql);
                 
-                $sql = sprintf(
-                    'ALTER TABLE %s DROP COLUMN %s',
-                    $this->enquote($this->tablename),
-                    $this->enquote($this->columname2)
-                );
-                $this->exec($sql);
+                    $sql = sprintf(
+                        'ALTER TABLE %s DROP COLUMN %s',
+                        $this->enquote($this->tablename),
+                        $this->enquote($this->columname2)
+                    );
+                    $this->exec($sql);
             
             default:
-                # code here...
+                // code here...
                 break;
         }
     }

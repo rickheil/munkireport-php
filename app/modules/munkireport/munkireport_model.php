@@ -52,8 +52,6 @@ class Munkireport_model extends Model
     
     /**
      * Get manifests statistics
-     *
-     *
      **/
     public function get_manifest_stats()
     {
@@ -76,8 +74,6 @@ class Munkireport_model extends Model
     
     /**
      * Get munki versions
-     *
-     *
      **/
     public function get_versions()
     {
@@ -193,7 +189,7 @@ class Munkireport_model extends Model
         // Legacy support: check if we got an old style report
         if (array_key_exists('ManagedInstalls', $mylist)) {
             // Load legacy support TODO: use autoloader
-            include_once(APP_PATH . '/lib/munkireport/Legacy_munkireport.php');
+            include_once APP_PATH . '/lib/munkireport/Legacy_munkireport.php';
             $legacyObj = new munkireport\Legacy_munkireport;
             $install_list = $legacyObj->parse($mylist)->getList();
             

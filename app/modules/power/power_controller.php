@@ -32,8 +32,6 @@ class Power_controller extends Module_controller
     
     /**
      * Get Power Statistics
-     *
-     *
      **/
     public function get_stats()
     {

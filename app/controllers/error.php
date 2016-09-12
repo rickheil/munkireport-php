@@ -5,7 +5,7 @@ namespace controllers;
 use munkireport\Controller as Controller;
 use munkireport\View as View;
 
-class error extends Controller
+class Error extends Controller
 {
     public function __construct()
     {
@@ -13,7 +13,6 @@ class error extends Controller
 
     /**
      * Client error, displays an http error page
-     *
      **/
     public function client_error($status_code = 404)
     {

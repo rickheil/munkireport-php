@@ -33,7 +33,6 @@ class Location_controller extends Module_controller
     
     /**
     * Retrieve data in json format
-    *
     **/
     public function get_data($serial_number = '')
     {

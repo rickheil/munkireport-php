@@ -20,14 +20,14 @@ class Displays_info_model extends Model
           $this->rs['native'] = ''; // Native resolution
           $this->rs['timestamp'] = 0; // Unix time when the report was uploaded
 
-      //indexes to optimize queries
+        //indexes to optimize queries
         $this->idx[] = array('display_serial');
         $this->idx[] = array('serial_number');
 
-      // Schema version, increment when creating a db migration
+        // Schema version, increment when creating a db migration
         $this->schema_version = 0;
 
-      // Create table if it does not exist
+        // Create table if it does not exist
         $this->create_table();
 
         if ($serial) {
@@ -39,7 +39,6 @@ class Displays_info_model extends Model
     
     /**
      * Get count of  displays
-     *
      *
      * @param int $type type 1 is external, type 0 is internal
      **/
@@ -53,18 +52,18 @@ class Displays_info_model extends Model
     }
 
 
-// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author Noel B.A.
      **/
     public function process($data)
     {
 
-      // translate array used to match data to db fields
+        // translate array used to match data to db fields
         $translate = array('Type = ' => 'type',
                           'Serial = ' => 'display_serial',
                           'Vendor = ' => 'vendor',
@@ -72,31 +71,31 @@ class Displays_info_model extends Model
                           'Manufactured = ' => 'manufactured',
                           'Native = ' => 'native');
 
-      // if we didn't specify in the config that we like history then
-      // we nuke any data we had with this computer's s/n
+        // if we didn't specify in the config that we like history then
+        // we nuke any data we had with this computer's s/n
         if (! conf('keep_previous_displays')) {
             $this->deleteWhere('serial_number=?', $this->serial_number);
             $this->display_serial = null; //get rid of any s/n that was left in memory
         }
-      // Parse data
+        // Parse data
         foreach (explode("\n", $data) as $line) {
-          // Translate standard entries
+            // Translate standard entries
             foreach ($translate as $search => $field) {
-              //the separator is what triggers the save for each display
-              //making sure we have a valid s/n.
+                //the separator is what triggers the save for each display
+                //making sure we have a valid s/n.
                 if ((strpos($line, '----------') === 0) && ($this->display_serial)) {
-                  //if we have not nuked the records, do a selective delete
+                    //if we have not nuked the records, do a selective delete
                     if (conf('keep_previous_displays')) {
                         $this->deleteWhere('serial_number=? AND display_serial=?', array($this->serial_number, $this->display_serial));
                     }
-                  //get a new id
+                    //get a new id
                     $this->id = 0;
                     $this->save(); //the actual save
                     $this->display_serial = null; //unset the display s/n to avoid writing twice if multiple separators are passed
                     break;
                 } elseif (strpos($line, $search) === 0) { //else if not separator and matches
                     $value = substr($line, strlen($search)); //get the current value
-                  // use bool for Type
+                    // use bool for Type
                     if (strpos($value, 'Internal') === 0) {
                         $this->$field = 0;
                         break;
@@ -110,7 +109,7 @@ class Displays_info_model extends Model
                 }
             } //end foreach translate
 
-        //timestamp added by the server
+            //timestamp added by the server
             $this->timestamp = time();
         } //end foreach explode lines
     } //process function end

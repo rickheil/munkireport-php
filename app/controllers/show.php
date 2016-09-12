@@ -5,7 +5,7 @@ namespace controllers;
 use munkireport\Controller as Controller;
 use munkireport\View as View;
 
-class show extends Controller
+class Show extends Controller
 {
     public function __construct()
     {

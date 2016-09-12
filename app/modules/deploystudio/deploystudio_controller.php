@@ -9,7 +9,7 @@ use munkireport\View as View;
  * DeployStudio module class
  *
  * @package munkireport
- * @author tuxudo (John Eberle)
+ * @author  tuxudo (John Eberle)
  **/
 class deploystudio_controller extends Module_controller
 {

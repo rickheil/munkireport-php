@@ -35,7 +35,6 @@ class Munkireport_controller extends Module_controller
     
     /**
      * Retrieve data in json format
-     *
      **/
     public function get_data($serial_number = '')
     {
@@ -51,8 +50,6 @@ class Munkireport_controller extends Module_controller
     
     /**
      * Get manifests statistics
-     *
-     *
      **/
     public function get_manifest_stats()
     {
@@ -67,8 +64,6 @@ class Munkireport_controller extends Module_controller
     
     /**
     * Get munki versions
-     *
-     *
      **/
     public function get_versions()
     {
@@ -85,6 +80,7 @@ class Munkireport_controller extends Module_controller
     /**
      * Get statistics
      *   *
+     *
      * @param integer $hours Number of hours to get stats from
      **/
     public function get_stats($hours = 24)

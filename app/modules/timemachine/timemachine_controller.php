@@ -10,7 +10,7 @@ use munkireport\View as View;
  * Timemachine module class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Timemachine_controller extends Module_controller
 {

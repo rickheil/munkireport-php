@@ -4,8 +4,6 @@ namespace munkireport;
 
 /**
 * Recaptcha class
-*
-*
 */
 class Recaptcha
 {

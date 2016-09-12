@@ -23,8 +23,8 @@ class Email
     {
         $out = array('error' => 0, 'error_msg' => '');
         
-        include_once(APP_PATH . '/lib/phpmailer/class.phpmailer.php');
-        include_once(APP_PATH . '/lib/phpmailer/class.smtp.php');
+        include_once APP_PATH . '/lib/phpmailer/class.phpmailer.php';
+        include_once APP_PATH . '/lib/phpmailer/class.smtp.php';
         $mail = new \PHPMailer;
         
         // Get from

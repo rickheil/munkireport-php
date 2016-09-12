@@ -10,7 +10,7 @@ use munkireport\View as View;
  * Crashplan_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Crashplan_controller extends Module_controller
 {

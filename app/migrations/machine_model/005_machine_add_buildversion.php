@@ -114,7 +114,7 @@ class Migration_machine_add_buildversion extends Model
                     $this->enquote($this->tablename),
                     $this->enquote($this->columname)
                 );
-                $this->exec($sql);
+                    $this->exec($sql);
         }
     }
 }

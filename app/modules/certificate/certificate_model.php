@@ -34,7 +34,6 @@ class Certificate_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -74,19 +73,23 @@ class Certificate_model extends Model
                         $errors[] = [
                         'type' => 'danger',
                         'msg' => 'cert.expired',
-                        'data' => json_encode(array(
+                        'data' => json_encode(
+                            array(
                             'name' => $this->cert_cn,
                             'timestamp' => $this->cert_exp_time
-                        ))
+                            )
+                        )
                         ];
                     } elseif ($this->cert_exp_time < $four_weeks) {
                         $errors[] = [
                         'type' => 'warning',
                         'msg' => 'cert.expire_warning',
-                        'data' => json_encode(array(
+                        'data' => json_encode(
+                            array(
                             'name' => $this->cert_cn,
                             'timestamp' => $this->cert_exp_time
-                        ))
+                            )
+                        )
                         ];
                     }
                 }

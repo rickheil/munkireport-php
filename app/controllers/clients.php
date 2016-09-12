@@ -11,7 +11,7 @@ use modules\localadmin\Localadmin_model as Localadmin_model;
 use modules\security\Security_model as Security_model;
 use munkireport\View as View;
 
-class clients extends Controller
+class Clients extends Controller
 {
     public function __construct()
     {
@@ -90,7 +90,7 @@ class clients extends Controller
     /**
      * Detail page of a machine
      *
-     * @param string serial
+     * @param  string serial
      * @return void
      * @author abn290
      **/
@@ -116,7 +116,7 @@ class clients extends Controller
     /**
      * List of machines
      *
-     * @param string name of view
+     * @param  string name of view
      * @return void
      * @author abn290
      **/

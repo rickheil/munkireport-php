@@ -42,7 +42,7 @@ class Network_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author abn290
      **/
     public function process($data)

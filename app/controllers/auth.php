@@ -12,7 +12,7 @@ use lib\authLDAP\authLDAP as authLDAP;
 use lib\adLDAP\adLDAP as adLDAP;
 use lib\phpass\PasswordHash as PasswordHash;
 
-class auth extends Controller
+class Auth extends Controller
 {
     // Authentication mechanisms we handle
     public $mechanisms = array('noauth', 'config', 'ldap', 'AD');
@@ -66,7 +66,7 @@ class auth extends Controller
     
         //check for recaptcha
         if (conf('recaptchaloginpublickey')) {
-        //recaptcha enabled by admin; checking it
+            //recaptcha enabled by admin; checking it
             if ($response = post('g-recaptcha-response')) {
                 $recaptchaObj = new Recaptcha(conf('recaptchaloginprivatekey'));
                 $remote_ip = getRemoteAddress();
@@ -89,7 +89,7 @@ class auth extends Controller
         // Loop through authentication mechanisms
         // Break when we have a match
         foreach ($this->auth_mechanisms as $mechanism => $auth_data) {
-        // Check if pre-authentication is successful
+            // Check if pre-authentication is successful
             if ($pre_auth_failed) {
                 break;
             }
@@ -108,7 +108,7 @@ class auth extends Controller
                             $auth_verified = $t_hasher->CheckPassword($password, $auth_data[$login]);
                             
                             if ($auth_verified) {
-                            // Get group memberships
+                                // Get group memberships
                                 foreach (conf('groups', array()) as $groupname => $members) {
                                     if (in_array($login, $members)) {
                                         $groups[] = $groupname;
@@ -124,7 +124,7 @@ class auth extends Controller
                     if ($login && $password) {
                         $ldap_auth_obj = new Auth_ldap($auth_data);
                         if ($ldap_auth_obj->authenticate($login, $password)) {
-                        //alert('Authenticated');
+                            //alert('Authenticated');
                             // Check user against users list
                             if (isset($auth_data['mr_allowed_users'])) {
                                 $admin_users = is_array($auth_data['mr_allowed_users']) ? $auth_data['mr_allowed_users'] : array($auth_data['mr_allowed_users']);
@@ -143,7 +143,7 @@ class auth extends Controller
                             }
                             // Check user against group list
                             if (isset($auth_data['mr_allowed_groups'])) {
-                            // Set mr_allowed_groups to array
+                                // Set mr_allowed_groups to array
                                 $admin_groups = is_array($auth_data['mr_allowed_groups']) ? $auth_data['mr_allowed_groups'] : array($auth_data['mr_allowed_groups']);
                                 // Get groups from AD
                                 if ($user_data = $ldap_auth_obj->getUserData($login)) {
@@ -170,7 +170,7 @@ class auth extends Controller
                 case 'AD': // Active Directory authentication
                     // Prevent empty values
                     if ($_POST && $login && $password) {
-                    //include the class and create a connection
+                        //include the class and create a connection
                         //TODO: wrap this include somewhere else?
                         try {
                             $adldap = new adLDAP($auth_data);
@@ -184,7 +184,7 @@ class auth extends Controller
                         }
                         // If nothing has failed to this point, authenticate user
                         if ($adldap->authenticate($login, $password)) {
-                        // Check user against userlist
+                            // Check user against userlist
                             if (isset($auth_data['mr_allowed_users'])) {
                                 $admin_users = is_array($auth_data['mr_allowed_users']) ? $auth_data['mr_allowed_users'] : array($auth_data['mr_allowed_users']);
                                 if (in_array(strtolower($login), array_map('strtolower', $admin_users))) {
@@ -200,7 +200,7 @@ class auth extends Controller
                             }
                             // Check user against group list
                             if (isset($auth_data['mr_allowed_groups'])) {
-                            // Set mr_allowed_groups to array
+                                // Set mr_allowed_groups to array
                                 $admin_groups = is_array($auth_data['mr_allowed_groups']) ? $auth_data['mr_allowed_groups'] : array($auth_data['mr_allowed_groups']);
                                 // Get groups from AD
                                 $groups = $adldap->user()->groups($login);
@@ -255,7 +255,6 @@ class auth extends Controller
 
     /**
      * Set session properties
-     *
      **/
     public function set_session_props($show = false)
     {
@@ -276,7 +275,7 @@ class auth extends Controller
 
         // Find role in config for current user
         foreach (conf('roles', array()) as $role => $members) {
-        // Check for wildcard
+            // Check for wildcard
             if (in_array('*', $members)) {
                 $_SESSION['role'] = $role;
                 $_SESSION['role_why'] = 'Matched on wildcard (*) in '.$role;
@@ -311,10 +310,10 @@ class auth extends Controller
         if ($_SESSION['auth'] == 'noauth' or $_SESSION['role'] == 'admin') {
             unset($_SESSION['business_unit']);
         } elseif (! $bu_enabled) {
-        // Regular user w/o business units enabled
+            // Regular user w/o business units enabled
             unset($_SESSION['business_unit']);
         } elseif ($bu_enabled) {
-        // Authorized user, not in business unit
+            // Authorized user, not in business unit
             $_SESSION['role'] = 'nobody';
             $_SESSION['role_why'] = 'Default role for Business Units';
             $_SESSION['business_unit'] = 0;
@@ -340,7 +339,7 @@ class auth extends Controller
 
         // Set machine_groups
         if ($_SESSION['role'] == 'admin' or ! $bu_enabled) {
-        // Can access all defined groups (from machine_group)
+            // Can access all defined groups (from machine_group)
             // and used groups (from reportdata)
             $mg = new Machine_group;
             $report = new Reportdata_model;

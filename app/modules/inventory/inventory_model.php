@@ -40,11 +40,15 @@ class Inventory_model extends Model
      **/
     public function select_all()
     {
-        $sql = sprintf('SELECT name, version, COUNT(i.id) AS num_installs
+        $sql = sprintf(
+            'SELECT name, version, COUNT(i.id) AS num_installs
             FROM %s i 
             LEFT JOIN reportdata r ON (r.serial_number = i.serial_number)
             %s 
-            GROUP BY name, version', $this->enquote($this->tablename), get_machine_group_filter('WHERE', 'r'));
+            GROUP BY name, version',
+            $this->enquote($this->tablename),
+            get_machine_group_filter('WHERE', 'r')
+        );
         return $this->query($sql);
     }
     
@@ -122,7 +126,7 @@ class Inventory_model extends Model
         );
         $inventory_list = $parser->toArray();
         if (count($inventory_list)) {
-        // clear existing inventory items
+            // clear existing inventory items
             $this->deleteWhere('serial_number=?', $this->serial_number);
             // insert current inventory items
             foreach ($inventory_list as $item) {

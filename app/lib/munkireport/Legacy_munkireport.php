@@ -7,8 +7,6 @@ namespace munkireport;
  *
  * Converts standard ManagedInstalls plist to something
  * used in 004_munkireport_new migration and munkireport_model
- *
- *
  */
 class Legacy_munkireport
 {
@@ -34,7 +32,7 @@ class Legacy_munkireport
      *
      * Convert to new format
      *
-     * @param type var Description
+     * @param  type var Description
      * @return {11:return type}
      */
     public function parse(&$report)
@@ -105,7 +103,7 @@ class Legacy_munkireport
     {
         
         foreach ($item_list as $item) {
-            #install_list[item['name']]['time'] = item.time
+            // install_list[item['name']]['time'] = item.time
             $listItem = &$this->install_list[$item['name']];
             
             if ($item['status'] == 0) {
@@ -131,7 +129,7 @@ class Legacy_munkireport
     public function install_result($item_list)
     {
         foreach ($item_list as $item) {
-            #install_list[item['name']]['time'] = item.time
+            // install_list[item['name']]['time'] = item.time
             
             // Check if applesus item
             if (isset($item['productKey'])) {

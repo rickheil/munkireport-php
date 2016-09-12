@@ -11,7 +11,7 @@ use munkireport\Model as Model;
  * a client.
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Event_model extends Model
 {
@@ -54,8 +54,8 @@ class Event_model extends Model
     /**
      * Reset events
      *
-     * @param string serial number
-     * @param string optional module
+     * @param  string serial number
+     * @param  string optional module
      * @author
      **/
     public function reset($serial_number = '', $module = '')
@@ -98,8 +98,8 @@ class Event_model extends Model
     /**
      * Add message
      *
-     * @param string type
-     * @param string type
+     * @param  string type
+     * @param  string type
      * @author AvB
      **/
     public function danger($module, $msg)

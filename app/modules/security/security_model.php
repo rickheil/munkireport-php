@@ -33,7 +33,6 @@ class Security_model extends Model
      * Process data sent by postflight
      *
      * @param string data
-     *
      **/
     public function process($data)
     {
@@ -45,7 +44,7 @@ class Security_model extends Model
             'Gatekeeper: ' => 'gatekeeper',
             'SIP: ' => 'sip');
 
-//clear any previous data we had
+        //clear any previous data we had
         foreach ($translate as $search => $field) {
             $this->$field = '';
         }
@@ -58,7 +57,7 @@ class Security_model extends Model
                     
                     $this->$field = $value;
 
-                    # Check if this is the last field
+                    // Check if this is the last field
                     if ($field == 'sip') {
                         $this->id = '';
                         $this->save();
@@ -69,6 +68,6 @@ class Security_model extends Model
         } //end foreach explode lines
         
         
-    //	throw new Exception("Error Processing Request", 1);
+        //	throw new Exception("Error Processing Request", 1);
     }
 }

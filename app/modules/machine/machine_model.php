@@ -70,8 +70,6 @@ class Machine_model extends Model
     
     /**
      * Get duplicate computernames
-     *
-     *
      **/
     public function get_duplicate_computernames()
     {
@@ -94,7 +92,6 @@ class Machine_model extends Model
     
     /**
      * Get model statistics
-     *
      **/
     public function get_model_stats()
     {
@@ -117,8 +114,6 @@ class Machine_model extends Model
     
     /**
      * Get memory statistics
-     *
-     *
      **/
     public function get_memory_stats()
     {
@@ -143,7 +138,7 @@ class Machine_model extends Model
     /**
      * Process data sent by postflight
      *
-     * @param string data
+     * @param  string data
      * @author abn290
      **/
     public function process($plist)

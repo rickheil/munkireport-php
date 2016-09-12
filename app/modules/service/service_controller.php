@@ -9,7 +9,7 @@ use munkireport\View as View;
  * Service_controller class
  *
  * @package munkireport
- * @author AvB
+ * @author  AvB
  **/
 class Service_controller extends Module_controller
 {

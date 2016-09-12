@@ -8,7 +8,7 @@ use \PDOException as PDOException;
 class Database
 {
     
-    private $config
+    private $config;
     private $dbh;
     private $error;
 

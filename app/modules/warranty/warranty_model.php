@@ -35,7 +35,6 @@ class Warranty_model extends Model
     
     /**
      * Get Warranty statistics
-     *
      **/
     public function get_stats($alert = false)
     {
@@ -81,7 +80,7 @@ class Warranty_model extends Model
         $prev_status = $this->status;
 
         // Load warranty helper
-        require_once(conf('application_path').'helpers/warranty_helper.php');
+        include_once conf('application_path').'helpers/warranty_helper.php';
         
         // Update needed, check with apple
         $error = check_warranty_status($this);
