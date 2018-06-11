@@ -5,23 +5,19 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Sophos extends Migration
 {
-	private $tableName = 'sophos';
 
-	public function up()
+    public function up()
 	{
 		$capsule = new Capsule();
-        $migrateData = false;
-		
-		$capsule::schema()->create($this->tableName, function (Blueprint $table) {
+		$capsule::schema()->create('sophos', function (Blueprint $table) {
         $table->increments('id');
-
 		$table->string('serial_number')->unique();
-		$table->string('installed');
-		$table->string('running');
-		$table->string('product_version');
-		$table->string('engine_version');
-		$table->string('virus_data_version');
-		$table->string('user_interface_version');
+		$table->string('installed')->nullable();
+        $table->string('running')->nullable();
+		$table->string('product_version')->nullable();
+		$table->string('engine_version')->nullable();
+		$table->string('virus_data_version')->nullable();
+		$table->string('user_interface_version')->nullable();
 
 		$table->index('serial_number');
 		$table->index('installed');
@@ -35,8 +31,9 @@ class Sophos extends Migration
 	}
 
 	public function down()
-	{
-	// todo
+    {
+        $capsule = new Capsule();
+        $capsule::schema()->dropIfExists('sophos');
 	}
 }	
 		
