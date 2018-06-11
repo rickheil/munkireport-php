@@ -21,11 +21,11 @@ class Sophos_controller extends Module_controller
      **/
     public function index()
     {
-        echo "You've loaded the security module!";
+        echo "You've loaded the Sophos module!";
     }
 
     /**
-     * Get security for serial_number
+     * Get Sophos for serial_number
      *
      * @param string $serial serial number
      **/
@@ -35,9 +35,9 @@ class Sophos_controller extends Module_controller
         if (! $this->authorized()) {
             $out['error'] = 'Not authorized';
         } else {
-            $prm = new Security_model;
-            foreach ($prm->retrieve_records($serial) as $security) {
-                $out[] = $security->rs;
+            $prm = new Sophos_model;
+            foreach ($prm->retrieve_records($serial) as $sophos) {
+                $out[] = $sophos->rs;
             }
         }
 
