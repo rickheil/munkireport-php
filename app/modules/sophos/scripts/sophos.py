@@ -13,7 +13,7 @@ from munkilib import FoundationPlist
 
 
 def check_sophos_running():
-    cmd = ['/bin/launchctl', 'print', 'system/com.sophos.mcs']
+    cmd = ['/bin/launchctl', 'print', 'system/com.sophos.scan']
     sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = sp.communicate()
 
@@ -55,7 +55,9 @@ def main():
     result = {}
     # check if Sophos is installed
     if os.path.isdir('/Applications/Sophos Endpoint.app'):
-        result.update({'Installed': True})
+        result.update({'Installed': 'Sophos Central'})
+    elif os.path.isdir('/Applications/Sophos Anti-Virus.app'):
+        result.update({'Installed': 'Sophos Business'})
     else:
         result.update({'Installed': False})
 
