@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Running</key>
+	<true/>
+	<key>Versions</key>
+	<dict>
+		<key>Engine version</key>
+		<string>3.72.0</string>
+		<key>Product version</key>
+		<string>9.7.5</string>
+		<key>User interface version</key>
+		<string>2.07.372</string>
+		<key>Virus data version</key>
+		<string>5.51</string>
+	</dict>
+</dict>
+</plist>

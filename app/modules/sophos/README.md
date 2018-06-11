@@ -1,0 +1,1 @@
+This module gathers data and reports on Sophos AntiVirus status. It was coded and tested with the "Sophos Central" cloud service in mind - if you run into bugs with the Enterprise (on prem) version, please file them in the issues queue and we can update it to work for both!
