@@ -55,9 +55,9 @@ def main():
     result = {}
     # check if Sophos is installed
     if os.path.isdir('/Applications/Sophos Endpoint.app'):
-        result.update({'Installed': 'True'})
+        result.update({'Installed': True})
     else:
-        result.update({'Installed': 'False'})
+        result.update({'Installed': False})
 
     # check if Sophos is running
     result.update({'Running': check_sophos_running()})
