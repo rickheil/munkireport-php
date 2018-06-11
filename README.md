@@ -1,6 +1,8 @@
-[![Stories in Ready](https://badge.waffle.io/munkireport/munkireport-php.png?label=ready&title=Ready)](https://waffle.io/munkireport/munkireport-php)
+
 munkireport-php
 ===============
+
+master: [![Build Status](https://travis-ci.org/munkireport/munkireport-php.svg?branch=master)](https://travis-ci.org/munkireport/munkireport-php)  wip: [![Build Status](https://travis-ci.org/munkireport/munkireport-php.svg?branch=wip)](https://travis-ci.org/munkireport/munkireport-php)
 
 ![Dashboard view](https://github.com/munkireport/munkireport-php/wiki/assets/pics/dashboard.png)
 
@@ -77,7 +79,7 @@ Munkireport-php makes use of these fine software packages:
 * [Moment.js](http://momentjs.com) for displaying time
 * [Bootstrap 3.0](http://getbootstrap.com) the main webframework
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons
-* [adLDAP](http://adldap.sourceforge.net) for authenticating against AD
+* [adLDAP](https://github.com/Adldap2/Adldap2) for authenticating against AD
 * [i18next](http://i18next.com) js library for localization
 * [libgsx](https://github.com/filipp/gsxlib) libgsx library used for GSX integration 
 

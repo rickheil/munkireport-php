@@ -1,6 +1,78 @@
-### [3.0.0-beta.1](https://github.com/munkireport/munkireport-php/compare/v2.16.0...HEAD) (Unreleased)
+### [3.2.0](https://github.com/munkireport/munkireport-php/compare/v3.1.1...HEAD) (Unreleased)
 
-The third major version of munkireport attempts to solve a couple of longstanding issues concerning security, dependency management and database management. Most notable changes are:
+### [3.1.1](https://github.com/munkireport/munkireport-php/compare/v3.1.0...v3.1.1) (March 23, 2018)
+
+FIXES
+- filevault escrow migration
+
+NEW FEATURES
+- Travis CI integration (#1031) @mosen
+- Added support for server-side IP filtering (#990) @danner26
+
+### [3.1.0](https://github.com/munkireport/munkireport-php/compare/v3.0.2...v3.1.0) (March 21, 2018)
+
+FIXES
+- Totalsize of disk in client detail
+- Updated MySQL default config example
+- munkiinfo module
+- Adjusted security report loading data (#983) @tuxudo
+- Fix DeployStudio migration (#982) @tuxudo
+- Fixed DeployStudio processing on MR3 (#985) @tuxudo
+- Add option to use current username for ssh link (#976) @poundbangbash
+- Check for no Bluetooth in BT module (#992) @tuxudo
+- Fixed postflight error in homebrew modules (#991) @tuxudo
+- Migration adjustment for nullable values. (#973) @poundbangbash
+- Fixed vendor column (#998) @tuxudo
+- Docker (#1003) @sphen13
+- Remove index.php .htacces and web.config from src root
+- Fix certificate migration
+- Add fv key encryption migration
+- Add filter to getLocalAdmins
+- Extensions module - Added variable declaration (#1017) @poundbangbash
+
+NEW FEATURES
+- Add optional recursive group searching to AD auth
+- Added widget for 32-bit apps (#1021) @tuxudo
+- Added support for different ship to in GSX (#1028)
+
+### [3.0.2](https://github.com/munkireport/munkireport-php/compare/v3.0.1...v3.0.2) (February 15, 2018)
+
+More bugfixes, mostly migration related.
+
+FIXES
+- Fixed migrations for SQLite (#971)
+- Added indexes for the tag, usb, fonts, network_shares, homebrew and servermetrics modules
+- Improved Dockerfile
+
+
+### [3.0.1](https://github.com/munkireport/munkireport-php/compare/v3.0.0...v3.0.1) (February 14, 2018)
+
+This is a small bugfix release that fixes some issues with the 3.0.0 release.
+
+FIXES
+- Fixed certificate warnings in events (#959) @tuxudo
+- Hide zero blocks on disk widgets (#958) @tuxudo
+- Security ssh detection update (#943) @poundbangbash
+- Smart stats report title fix (#942) @poundbangbash
+- Changed power columns to be nullable in migration (#955) @tuxudo
+- Smart stats widget title localization fix (#961) @poundbangbash
+- Fixed WiFi nullable migration (#957) @tuxudo
+- Fix migration files @poundbangbash
+- Disk report error fix (#965) @tuxudo
+- Extensions migration name fix (#968) @poundbangbash
+- Adjust database log view to use theme for readability. (#963) @poundbangbash
+- Fix bad datatype in usage_stats migration (#956) @tuxudo
+
+NEW FEATURES
+- Extension module TeamID breakout (#953) @poundbangbash
+- Create widget for os build breakdown and add it to the client report (#951) @AaronBurchfield
+- Update Dockerfile for php7.2
+
+### [3.0.0](https://github.com/munkireport/munkireport-php/compare/v2.15.2...v3.0.0) (February 07, 2018)
+
+The third major version of munkireport attempts to solve a couple of longstanding issues concerning security, dependency management and database management. We're moving slowly to using eloquent as replacement for the KISS database abstraction. A ton of work has been done by @mosen to make this all work.
+
+Most notable changes are:
 
 - Minimum PHP version is 7.0
 - Document root is now in a directory called `/public`. The best practice is to serve your munkireport instance from this directory or make a symlink to this directory.
@@ -11,8 +83,29 @@ The third major version of munkireport attempts to solve a couple of longstandin
 See also the [Upgrade v3 guide](https://github.com/munkireport/munkireport-php/wiki/How-to-Upgrade-to-v3) and [Quick demo v3](https://github.com/munkireport/munkireport-php/wiki/Quick-demo-V3)
 
 FIXES
+- Certificate Module fix for multiple certs with same name (#893) @sphen13
+- Misc UI fixes (#885) @tuxudo
+- Fix vendors for 10.13 (#902) @tuxudo
+- Fix localization in client tab (#903) @tuxudo
+- Use CFPreferences to read BaseUrl and Passphrase. (#919) @MagerValp
+- Misc migration fixes
+- AuthLDAP fixed (#944)
+- Recaptcha uses proxy settings
+- Database info fixed
+- Installer postflight script (#949) @MagerValp
+
+NEW FEATURES
 - NVMe Support in SMART Stats module (#895) @tuxudo
-- 
+- Update Network Info script to now pull Tunnel adapter information (#897) @jbaker10
+- Sort machine groups by name (#898) @choules
+- New module: Munki-facts (#850) @nathanperkins and @poundbangbash
+- New module: Usage Stats module (#843) @tuxudo
+- New module: Applications Module (#917) @tuxudo
+- New module: DetectX Module (#916) @WardsParadox
+- SAML support, see also [SAML authentication](https://github.com/munkireport/munkireport-php/wiki/SAML-authentication)
+- Added filesystem widget (#886) @tuxudo
+- Maintenance Mode, see also [Maintenance Mode](https://github.com/munkireport/munkireport-php/wiki/Maintenance-Mode)
+- German translation (#941) @fridomac
 
 ### [2.15.2](https://github.com/munkireport/munkireport-php/compare/v2.14.3...v2.15.2) (Sept 28, 2017)
 

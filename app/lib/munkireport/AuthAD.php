@@ -2,16 +2,23 @@
 
 namespace munkireport\lib;
 
-use \Adldap\Adldap, \Exception;
-
+use Adldap\Adldap, \Exception;
 
 class AuthAD extends AbstractAuth
 {
-    private $config, $groups, $login, $auth_status;
+    private $config, $schema, $groups, $login, $auth_status;
 
     public function __construct($config)
     {
         $this->config = $config;
+        // Schema support
+        if (isset($this->config['schema'])){
+            $schemaName = 'Adldap\\Schemas\\'.$this->config['schema'];
+            $this->schema = new $schemaName;
+            unset($this->config['schema']);
+        } else {
+            $this->schema = new ActiveDirectory;
+        }
         $this->groups = [];
     }
 
@@ -20,15 +27,26 @@ class AuthAD extends AbstractAuth
         $this->login = $login;
         if ($login && $password) {
             $adldap = new adLDAP;
-            $adldap->addProvider($this->stripMunkireportItemsFromConfig($this->config));
+
+            $adldap->addProvider(
+                $this->stripMunkireportItemsFromConfig($this->config),
+                $name = 'default',
+                null,
+                $this->schema
+            );
 
             try {
                 $provider = $adldap->connect();
                 if($provider->auth()->attempt($login, $password, ! $this->bindAsAdmin())){
                     $search = $provider->search();
 
-                    $user = $search->findOrFail($login);
-                    $this->groups = $user->getGroupNames();
+                    if ($this->schema instanceof ActiveDirectory) {
+                        $user = $search->users()->findOrFail($login);
+                    }
+                    else {
+                        $user = $search->users()->findByOrFail('uid', $login);
+                    }
+                    $this->groups = $user->getGroupNames($this->recursiveGroupSearch());
 
                     $auth_data = [
                         'user' => $login,
@@ -61,6 +79,11 @@ class AuthAD extends AbstractAuth
     private function bindAsAdmin()
     {
          return isset($this->config['admin_username']) && isset($this->config['admin_password']);
+    }
+
+    private function recursiveGroupSearch()
+    {
+        return isset($this->config['mr_recursive_groupsearch']) ? $this->config['mr_recursive_groupsearch'] : false;
     }
 
     public function getAuthMechanism()

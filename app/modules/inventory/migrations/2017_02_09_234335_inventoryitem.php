@@ -28,19 +28,14 @@ class Inventoryitem extends Migration
 
             $table->string('serial_number');
             $table->string('name');
-            $table->string('version');
+            $table->string('version', 78); // 78 is the max length in MySQL 5.0 due to index length
             $table->string('bundleid');
             $table->string('bundlename');
             $table->text('path');
-
-            $table->index(['name', 'version']);
-            $table->index('serial_number');
-            $table->index('bundleid');
-            $table->index('bundlename');
         });
 
         if ($migrateData) {
-            $capsule::select("INSERT INTO 
+            $capsule::unprepared("INSERT INTO
                 $this->tableName
             SELECT
                 id,
@@ -52,7 +47,16 @@ class Inventoryitem extends Migration
                 path
             FROM
                 $this->tableNameV2");
+            $capsule::schema()->drop($this->tableNameV2);
         }
+
+        // (Re)create indexes
+        $capsule::schema()->table($this->tableName, function (Blueprint $table) {
+            $table->index(['name', 'version']);
+            $table->index('serial_number');
+            $table->index('bundleid');
+            $table->index('bundlename');
+        });
     }
 
     public function down()

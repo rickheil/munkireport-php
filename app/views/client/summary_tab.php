@@ -143,6 +143,9 @@
 				(<span class="mr-console_user"></span>)</td>
 				</tr>
 				<tr>
+					<th data-i18n="user_sessions.last_user_uid"></th><td><span class="mr-uid"></span></td>
+				</tr>
+				<tr>
 					<th data-i18n="user.local_admins"></th><td class="mr-users"></td>
 				</tr>
 				</tr>
@@ -185,6 +188,9 @@
 				</tr>
 				<tr>
 					<th data-i18n="security.sip"></th><td class="mr-sip"></td>
+				</tr>
+				<tr>
+					<th data-i18n="security.ssh_groups"></th><td class="mr-ssh_groups"></td>
 				</tr>
 				<tr>
 					<th data-i18n="security.ssh_users"></th><td class="mr-ssh_users"></td>
