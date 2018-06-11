@@ -1,5 +1,7 @@
 <?php
 
+use CFPropertyList\CFPropertyList;
+
 class Sophos_model extends \Model
 {
     public function __construct($serial = '')
@@ -48,15 +50,38 @@ class Sophos_model extends \Model
 
 		$plist = $parser->toArray();
 
-		foreach (array('running', array('versions')) as $item) {
-			if (isset($plist[$item])) {
-				$this->$item = $plist[$item];
-			} else {
-				$this->$item = '';
-			}
-		}
-		$this->save();
+        $map = array(
+            'Engine version' => 'engine_version',
+            'Product version' => 'product_version',
+            'User interface version' => 'user_interface_version',
+            'Virus data version' => 'virus_data_version',
+        );
+
+        foreach ($map as $search => $item) {
+            if (isset($plist[$search])) {
+                if ($plist[$search] === true) {
+                    $this->$item = 1;
+                } elseif ($plist[$search] === false) {
+                    $this->$item = 0;
+                } else {
+                    $this->$item = $plist[$search];
+                }
+            } else {
+                $this->$item = '';
+            }
+        }
+
+        $this->$id = '';
+        $this->$save();
+
+#		foreach (array('running', array('versions')) as $item) {
+#			if (isset($plist[$item])) {
+#				$this->$item = $plist[$item];
+#			} else {
+#				$this->$item = '';
+#			}
+#
+#    }
+#		$this->save();
     }
 }
-
-?>
