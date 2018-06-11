@@ -46,4 +46,36 @@ class Sophos_model extends \Model
         $this->save();
 
     }
+
+    public function get_sophos_install_stats()
+    {
+        $sql = "SELECT COUNT(CASE WHEN installed = 1 THEN 1 END) AS Installed, COUNT(CASE WHEN installed = 0 THEN 1 END) AS 'Not Installed'
+            FROM sophos
+            LEFT JOIN reportdata USING(serial_number)
+            ".get_machine_group_filter();
+        return current($this->query($sql));
+    }
+
+
+    public function get_sophos_running_stats()
+    {
+        $sql = "SELECT COUNT(CASE WHEN running = 1 THEN 1 END) as Running, COUNT(CASE WHEN running = 0 THEN 1 END) as 'Not Running'
+            FROM sophos
+            LEFT JOIN reportdata USING(serial_number)
+            ".get_machine_group_filter();
+        return current($this->query($sql));
+    }
+
+
+    public function get_sophos_product_version_stats()
+    {
+        $sql = "SELECT count(1) as count, product_version
+            FROM sophos
+            LEFT JOIN reportdata USING(serial_number)
+            ".get_machine_group_filter()."
+            GROUP BY product_version
+            ORDER BY product_version DESC";
+
+        return current($this->query($sql));
+    }
 }
